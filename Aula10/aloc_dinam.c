@@ -88,6 +88,7 @@ ALOCAÇÃO DINÂMICA (doideira)
 */
 
 double *Aloque(int tam){
+    //como vamos retornar um endereço (ponteiro), temos que declarar a função como um ponteiro
     double *vetor_Aloque;
     vetor_Aloque = (double *) calloc(tam, sizeof(double));
     if (vetor_Aloque == NULL){
