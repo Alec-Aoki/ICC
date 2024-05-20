@@ -128,6 +128,8 @@ int main (void){
     */
 
     Imprima_Valores(vetor_main, tam);
+    free(vetor_main); //sempre libere a memória!!!
+    vetor_main = NULL;
 
     return 0;
 }
