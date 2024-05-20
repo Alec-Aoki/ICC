@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 /*DIVISÃO DE MEMÓRIA
 -> a memória RAM é separada em Pilha, Heap, Dados e Código
@@ -56,6 +57,8 @@ ALOCAÇÃO DINÂMICA (doideira)
     -> em essência, o CALLOC zera os espaços e o MALLOC não, simples assim
     
     FREE:
+    void* free(void *ptr);
+
     int *p;
     p = (int *) malloc(sinzeof(int));
     *p = 10;
@@ -76,8 +79,54 @@ ALOCAÇÃO DINÂMICA (doideira)
     //OBS: se der falha, você perde os valores guardados na memória antiga, então pode ser legal usar um *aux
 */
 
-int main (void){
+/*EXERCÍCIO
+    Fazer um programa que aloca dinamicamente um vetor de doubles com tamanho e elementos determinados pelo usuário
 
+    Leia_Elementos
+    Aloque
+    Imprima_Valores
+*/
+
+double *Aloque(int tam){
+    double *vetor_Aloque;
+    vetor_Aloque = (double *) calloc(tam, sizeof(double));
+    if (vetor_Aloque == NULL){
+        printf("Falta de memoria\n");
+        exit(1);
+    }
+    return vetor_Aloque;
+}
+
+void Leia_Elementos(double *vetor_Leia, int tam){
+    for (int i=0; i<tam; i++){
+        scanf(" %lf", &vetor_Leia[i]);
+    }
+    return;
+}
+
+void Imprima_Valores(double *vetor_Imprima, int tam){
+    for (int i=0; i<tam; i++){
+        printf("%lf ", vetor_Imprima[i]);
+    }
+    printf("\n");
+    return;
+}
+
+int main (void){
+    double *vetor_main;
+    int tam;
+    scanf(" %d", &tam);
+
+    vetor_main = Aloque(tam);
+
+    Leia_Elementos(vetor_main, tam);
+
+    /* !!!!!!!
+    o ponteiro vetor_main está guardando o endereço das variáveis na heap
+    como não queremos mudar o que o vetor_main está guardando, não vamos passar ele por referência, mas por valor
+    */
+
+    Imprima_Valores(vetor_main, tam);
 
     return 0;
 }
