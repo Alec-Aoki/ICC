@@ -28,13 +28,14 @@ ALOCAÇÃO DINÂMICA (doideira)
     //falha (não conseguiu alocar a memória na heap: retorna NULL
     
     int *p;
-    p = (int *)calloc(2,4); // ou então p=(int *)calloc(2,sizeof(int));, supondo que vamos armazenar ints
+    p = (int *) calloc(2,4); // ou então p=(int *)calloc(2,sizeof(int));, supondo que vamos armazenar ints
     //calloc(2,4) aloca 8 bytes na heap e retorna um ponteiro void para o início dessa memória
     //o cast (int *) transforma esse ponteiro void em ponteiro int
     //p recebe o início da memória
     p[0] = 1;
     p[1] = 2;
-    
+    //obs: p[0] não tira o ponteiro p do início da memória!
+
     MALLOC:
     void* malloc(size_t tam);
     //OBS: malloc NÃO inicializa os espaços de memória! (+ rápido q o calloc)
@@ -42,7 +43,7 @@ ALOCAÇÃO DINÂMICA (doideira)
     p = (int *)malloc(2*sizeof(int)); //tamanho de 8 bytes
     
     MODO CORRETO DE USAR:
-    if((p=(int*)malloc(12)) == NULL){
+    if((p=(int*) malloc(12)) == NULL){
         return 1; //ou então exit(1);, que sai do programa em vez de só sair da função
     }
     //ou
@@ -50,18 +51,33 @@ ALOCAÇÃO DINÂMICA (doideira)
     if (p == NULL){
         return 1;
     }
+
+    Diferença entre MALLOC e CALLOC:
+    -> em essência, o CALLOC zera os espaços e o MALLOC não, simples assim
     
     FREE:
     int *p;
-    p = (int *)malloc(sinzeof(int));
+    p = (int *) malloc(sinzeof(int));
     *p = 10;
     printf("%d\n", *p);
     free(p); //disponibiliza o espaço na memória apontada por esse ponteiro
-    p = NULL; //faz o ponteiro p apontar para nada
+    p = NULL; //faz o ponteiro p apontar para nada, porque p ainda tá apontando para a memória
+    //se você não der free, a memória só vai ser liberada quando o programa terminar
+    //OBS: é boa prática dar free sempre que você não for mais usar aquela memória
 
+    REALLOC:
+    void* realloc(void *ptr, size_t size);
+    //tenta redimensionar o bloco na memória apontado por ptr previamente alocado com calloc() ou malloc()
+    //sucesso: retorna um ponteiro void para o endereço base
+    //falha: retorna NULL
+    int *p;
+    p = (int *) malloc(2*sizeof(int));
+    p = (int *) realloc(p, (2*sizeof(int)) + (4*sizeof(int))); //é boa prática somar a memória antiga com o que queremos a mais
+    //OBS: se der falha, você perde os valores guardados na memória antiga, então pode ser legal usar um *aux
 */
 
 int main (void){
-    
+
+
     return 0;
 }
