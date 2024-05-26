@@ -61,7 +61,6 @@ void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
     for (int i=0; i<(linhas-2); i++){
         for (int j=0; j<(colunas-2); j++){
             if(pont_vet_pont[i+1][j+1] == 'X'){
-                printf("X em %d %d\n", i, j);
                 //[i][j-1]:
                 if(pont_vet_pont[i+1][j]=='.'){
                     pont_vet_pont[i+1][j] = '1';
@@ -93,6 +92,21 @@ void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
             }
         }
     }
+    for (int i=0; i<(linhas-2); i++){
+        for (int j=0; j<(colunas-2); j++){
+            if(pont_vet_pont[i+1][j+1]!='X'){
+                //pont_vet_pont é um número
+                //obs: o valor dos números ímpares na tabela ASCII também são ímpares
+                if((pont_vet_pont[i+1][j+1]%2==0) || (pont_vet_pont[i+1][j+1]=='.')){
+                    pont_vet_pont[i+1][j+1] = '*';
+                }
+                else {
+                    pont_vet_pont[i+1][j+1] = '.';
+                }
+            }
+        }
+    }
+    return;
 }
 
 int main(void){
@@ -107,9 +121,7 @@ int main(void){
 
     Preencha_Matriz(pont_vet_pont, linhas, colunas);
 
-    printf("Entrando cheque\n");
     Cheque_Matriz(pont_vet_pont, linhas, colunas);
-    printf("Cheque feito\n");
 
     for (int i=0; i<(linhas-2); i++){
         for (int j=0; j<(colunas-2); j++){
