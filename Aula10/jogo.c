@@ -36,6 +36,16 @@ char **Crie_Matriz(int linhas, int colunas){
     return pont_vet_pont;
 }
 
+void Preencha_Matriz(char **pont_vet_pont, int linhas, int colunas){
+    for (int i=0; i<linhas; i++){
+        for (int j=0; j<colunas; j++){
+            scanf(" %c", &pont_vet_pont[i][j]);
+        }
+    }
+
+    return;
+}
+
 int main(void){
     int linhas, colunas;
     scanf(" %d %d", &linhas, &colunas);
@@ -43,6 +53,8 @@ int main(void){
     char **pont_vet_pont;
     pont_vet_pont = Crie_Matriz(linhas, colunas);
     //pont_vet_pont agora aponta para o começo do vetor de ponteiros na heap
-    
+
+    Preencha_Matriz(pont_vet_pont, linhas, colunas);
+
     return 0;
 }
