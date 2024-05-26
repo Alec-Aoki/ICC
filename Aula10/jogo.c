@@ -4,6 +4,7 @@
 /*
 Programa:
 -> receber linhas e colunas
+-> Crie_Matriz();
 -> Preencha_Matriz();
     -> preenche a matriz de acordo com a entrada
 -> Cheque_Matriz();
@@ -14,7 +15,34 @@ Programa:
 -> Imprima_Matriz();
 */
 
+char **Crie_Matriz(int linhas, int colunas){
+    //ponteiro que aponta para o vetor de ponteiros:
+    char **pont_vet_pont;
+    pont_vet_pont = (char **)malloc(linhas*sizeof(char *));
+    if (pont_vet_pont == NULL){
+        printf("Deu ruim aqui\n");
+        exit(1);
+    }
+
+    //vetor grandão que vai servir de matriz:
+    char *pont_matriz;
+    pont_matriz = (char *)malloc((linhas*colunas)*sizeof(char));
+
+    //atribuindo cada parte do vetor grandão a um ponteiro do vetor de ponteiros:
+    for (int i=0; i<colunas; i++){
+        pont_vet_pont[i] = &pont_matriz[i*colunas];
+    }
+
+    return pont_vet_pont;
+}
+
 int main(void){
+    int linhas, colunas;
+    scanf(" %d %d", &linhas, &colunas);
+
+    char **pont_vet_pont;
+    pont_vet_pont = Crie_Matriz(linhas, colunas);
+    //pont_vet_pont agora aponta para o começo do vetor de ponteiros na heap
     
     return 0;
 }
