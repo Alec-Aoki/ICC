@@ -109,6 +109,20 @@ void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
     return;
 }
 
+void Imprima_Matriz(char **pont_vet_pont, int linhas, int colunas){
+    for (int i=0; i<(linhas-2); i++){
+        for (int j=0; j<(colunas-2); j++){
+            if ((j+1)!=(colunas-2)){
+                printf("%c", pont_vet_pont[i+1][j+1]);
+            }
+            else {
+                printf("%c\n", pont_vet_pont[i+1][j+1]);
+            }
+        }
+    }
+    return;
+}
+
 int main(void){
     int linhas, colunas;
     scanf(" %d %d", &linhas, &colunas);
@@ -123,16 +137,9 @@ int main(void){
 
     Cheque_Matriz(pont_vet_pont, linhas, colunas);
 
-    for (int i=0; i<(linhas-2); i++){
-        for (int j=0; j<(colunas-2); j++){
-            if ((j+1)!=(colunas-2)){
-                printf("%c", pont_vet_pont[i+1][j+1]);
-            }
-            else {
-                printf("%c\n", pont_vet_pont[i+1][j+1]);
-            }
-        }
-    }
+    Imprima_Matriz(pont_vet_pont, linhas, colunas);
 
+    free(*pont_vet_pont);
+    free(pont_vet_pont);
     return 0;
 }
