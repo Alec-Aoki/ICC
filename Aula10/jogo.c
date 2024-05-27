@@ -36,7 +36,7 @@ char **Crie_Matriz(int linhas, int colunas){
     }
 
     //atribuindo cada parte do vetor grandão a um ponteiro do vetor de ponteiros:
-    for (int i=0; i<colunas; i++){
+    for (int i=0; i<linhas; i++){
         pont_vet_pont[i] = &pont_matriz[i*colunas];
     }
 
@@ -181,6 +181,8 @@ int main(void){
     Imprima_Matriz(pont_vet_pont, linhas, colunas);
 
     free(*pont_vet_pont);
+    *pont_vet_pont = NULL;
     free(pont_vet_pont);
+    pont_vet_pont = NULL;
     return 0;
 }
