@@ -16,12 +16,6 @@ Programa:
         -> se o caractere for diferente de '.' ou 'X' (ou seja, é um número), vamos verificar sua paridade
             -> se for par, trocar por '*'
             -> se for ímpar, trocar por '.'
-    -> note que, usando esse método, teríamos uma invasão de memória nas bordas da matriz
-    -> para corrigir isso, vamos somar 1 à quantidade de colunas e linhas antes de qualquer operação
-    -> criamos assim o espaço necessário para fazer essas alterações sem ter que levar em conta cada exceção
-    -> como adicionamos uma linha para cima e para baixo, e uma coluna para a esquerda e a direita, sempre que usarmos os...
-    -> ...índices na matriz vamos ter que somar 1 a [i] e [j], para pegarmos somente a parte da matriz que queremos...
-    -> ... (isto é, o centro dela, ou seja, a matriz original)
 -> Imprima_Matriz();
 */
 
@@ -49,74 +43,31 @@ char **Crie_Matriz(int linhas, int colunas){
 }
 
 void Preencha_Matriz(char **pont_vet_pont, int linhas, int colunas){
-    for (int i=0; i<(linhas-2); i++){
-        for (int j=0; j<(colunas-2); j++){
-            scanf(" %c", &pont_vet_pont[i+1][j+1]);
+    for (int i=0; i<linhas; i++){
+        for (int j=0; j<colunas; j++){
+            scanf(" %c", &pont_vet_pont[i][j]);
         }
     }
     return;
 }
 
 void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
-    for (int i=0; i<(linhas-2); i++){
-        for (int j=0; j<(colunas-2); j++){
-            if(pont_vet_pont[i+1][j+1] == 'X'){
-                //[i][j-1]:
-                if(pont_vet_pont[i+1][j]=='.'){
-                    pont_vet_pont[i+1][j] = '1';
-                }
-                else if ((pont_vet_pont[i+1][j]!='.') && (pont_vet_pont[i+1][j]!='X')){
-                    pont_vet_pont[i+1][j]++;
-                }
-                //[i][j-1]:
-                if(pont_vet_pont[i+1][j+2]=='.'){
-                    pont_vet_pont[i+1][j+2] = '1';
-                }
-                else if ((pont_vet_pont[i+1][j+2]!='.') && (pont_vet_pont[i+1][j+2]!='X')){
-                    pont_vet_pont[i+1][j+2]++;
-                }
-                //[i-1][j]:
-                if(pont_vet_pont[i][j+1]=='.'){
-                    pont_vet_pont[i][j+1] = '1';
-                }
-                else if ((pont_vet_pont[i][j+1]!='.') && (pont_vet_pont[i][j+1]!='X')){
-                    pont_vet_pont[i][j+1]++;
-                }
-                //[i+1][j]:
-                if(pont_vet_pont[i+2][j+1]=='.'){
-                    pont_vet_pont[i+2][j+1] = '1';
-                }
-                else if ((pont_vet_pont[i+2][j+1]!='.') && (pont_vet_pont[i+2][j+1]!='X')){
-                    pont_vet_pont[i+2][j+1]++;
-                }
-            }
-        }
-    }
-    for (int i=0; i<(linhas-2); i++){
-        for (int j=0; j<(colunas-2); j++){
-            if(pont_vet_pont[i+1][j+1]!='X'){
-                //pont_vet_pont é um número
-                //obs: o valor dos números ímpares na tabela ASCII também são ímpares
-                if((pont_vet_pont[i+1][j+1]%2==0) || (pont_vet_pont[i+1][j+1]=='.')){
-                    pont_vet_pont[i+1][j+1] = '*';
-                }
-                else {
-                    pont_vet_pont[i+1][j+1] = '.';
-                }
-            }
+    for (int i=0; i<linhas; i++){
+        for (int j=0; j<colunas; j++){
+            
         }
     }
     return;
 }
 
 void Imprima_Matriz(char **pont_vet_pont, int linhas, int colunas){
-    for (int i=0; i<(linhas-2); i++){
-        for (int j=0; j<(colunas-2); j++){
-            if ((j+1)!=(colunas-2)){
-                printf("%c", pont_vet_pont[i+1][j+1]);
+    for (int i=0; i<linhas; i++){
+        for (int j=0; j<colunas; j++){
+            if (j!=(colunas-1)){
+                printf("%c", pont_vet_pont[i][j]);
             }
             else {
-                printf("%c\n", pont_vet_pont[i+1][j+1]);
+                printf("%c\n", pont_vet_pont[i][j]);
             }
         }
     }
@@ -126,8 +77,6 @@ void Imprima_Matriz(char **pont_vet_pont, int linhas, int colunas){
 int main(void){
     int linhas, colunas;
     scanf(" %d %d", &linhas, &colunas);
-    linhas += 2;
-    colunas += 2;
 
     char **pont_vet_pont;
     pont_vet_pont = Crie_Matriz(linhas, colunas);
