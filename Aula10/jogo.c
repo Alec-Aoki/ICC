@@ -9,10 +9,10 @@ Programa:
     -> preenche a matriz de acordo com a entrada
 -> Cheque_Matriz();
     -> define que posições podem ou não ser ocupadas
-    -> se acharmos um X, vamos verificar [i][j-1], [i][j+1], [i-1][j] e [i+1][j]
+    -> 1: se acharmos um X, vamos verificar [i][j-1], [i][j+1], [i-1][j] e [i+1][j]
         -> se uma dessas posições for um '.', vamos o trocar por '1'
         -> se essa posição não for '.' ou um 'X' (ou seja, é um número), vamos somar 1 a seu valor
-    -> vamos passar pela matriz novamente
+    -> 2: vamos passar pela matriz novamente
         -> se o caractere for diferente de '.' ou 'X' (ou seja, é um número), vamos verificar sua paridade
             -> se for par, trocar por '*'
             -> se for ímpar, trocar por '.'
@@ -53,6 +53,7 @@ void Preencha_Matriz(char **pont_vet_pont, int linhas, int colunas){
 }
 
 void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
+    //1:
     for (int i=0; i<linhas; i++){
         for (int j=0; j<colunas; j++){
             if (pont_vet_pont[i][j] == 'X'){
@@ -63,6 +64,7 @@ void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
                         pont_vet_pont[i+1][j] = '1'; 
                     }
                     else if (pont_vet_pont[i+1][j] != 'X'){
+                        //pont_vet_pont[i+1][j] é um número
                         pont_vet_pont[i+1][j]++;
                     }
                 }
@@ -72,6 +74,7 @@ void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
                         pont_vet_pont[i-1][j] = '1'; 
                     }
                     else if (pont_vet_pont[i-1][j] != 'X'){
+                        //pont_vet_pont[i-1][j] é um número
                         pont_vet_pont[i-1][j]++;
                     }
                 }
@@ -123,6 +126,25 @@ void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
                     else if (pont_vet_pont[i][j-1] != 'X'){
                         pont_vet_pont[i-1][j]++;
                     }
+                }
+            }
+        }
+    }
+    //2:
+    for (int i=0; i<linhas; i++){
+        for (int j=0; j<colunas; j++){
+            if (pont_vet_pont[i][j] == '.'){
+                pont_vet_pont[i][j] = '*';
+            }
+            else if (pont_vet_pont[i][j] != 'X'){
+                //pont_vet_pont[i][j] é um número
+                if (pont_vet_pont[i][j]%2 == 0){
+                    //quant. de vizinhos par, peça pode ser colocada
+                    pont_vet_pont[i][j] = '*';
+                }
+                else if (pont_vet_pont[i][j]%2 != 0) {
+                    //quant. de vizinhos ímpar, peça não pode ser colocada
+                    pont_vet_pont[i][j] = '.';
                 }
             }
         }
