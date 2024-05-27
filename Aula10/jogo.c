@@ -118,13 +118,13 @@ void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
                         pont_vet_pont[i][j+1] = '1'; 
                     }
                     else if (pont_vet_pont[i][j+1] != 'X'){
-                        pont_vet_pont[i+1][j]++;
+                        pont_vet_pont[i][j+1]++;
                     }
                     if (pont_vet_pont[i][j-1] == '.'){
                         pont_vet_pont[i][j-1] = '1'; 
                     }
                     else if (pont_vet_pont[i][j-1] != 'X'){
-                        pont_vet_pont[i-1][j]++;
+                        pont_vet_pont[i][j-1]++;
                     }
                 }
             }
