@@ -16,6 +16,7 @@ Programa:
         -> se o caractere for diferente de '.' ou 'X' (ou seja, é um número), vamos verificar sua paridade
             -> se for par, trocar por '*'
             -> se for ímpar, trocar por '.'
+        -> obs: como não podemos invadir memória, vamos ter que verificar se o X está na borda e agir de acordo
 -> Imprima_Matriz();
 */
 
@@ -54,7 +55,76 @@ void Preencha_Matriz(char **pont_vet_pont, int linhas, int colunas){
 void Cheque_Matriz(char **pont_vet_pont, int linhas, int colunas){
     for (int i=0; i<linhas; i++){
         for (int j=0; j<colunas; j++){
-            
+            if (pont_vet_pont[i][j] == 'X'){
+                //verificando se X está na borda pelo i:
+                if (i==0){
+                    //não podemos acessar [i-1][j]
+                    if (pont_vet_pont[i+1][j] == '.'){
+                        pont_vet_pont[i+1][j] = '1'; 
+                    }
+                    else if (pont_vet_pont[i+1][j] != 'X'){
+                        pont_vet_pont[i+1][j]++;
+                    }
+                }
+                else if (i==(linhas-1)){
+                    //não podemos acessar [i+1][j]
+                    if (pont_vet_pont[i-1][j] == '.'){
+                        pont_vet_pont[i-1][j] = '1'; 
+                    }
+                    else if (pont_vet_pont[i-1][j] != 'X'){
+                        pont_vet_pont[i-1][j]++;
+                    }
+                }
+                else {
+                    //podemos acessar [i+1][j] e [i-1][j]
+                    if (pont_vet_pont[i+1][j] == '.'){
+                        pont_vet_pont[i+1][j] = '1'; 
+                    }
+                    else if (pont_vet_pont[i+1][j] != 'X'){
+                        pont_vet_pont[i+1][j]++;
+                    }
+                    if (pont_vet_pont[i-1][j] == '.'){
+                        pont_vet_pont[i-1][j] = '1'; 
+                    }
+                    else if (pont_vet_pont[i-1][j] != 'X'){
+                        pont_vet_pont[i-1][j]++;
+                    }
+                }
+                //verificando se X está na borda pelo j:
+                if (j==0){
+                    //não podemos acessar [i][j-1]
+                    if (pont_vet_pont[i][j+1] == '.'){
+                        pont_vet_pont[i][j+1] = '1'; 
+                    }
+                    else if (pont_vet_pont[i][j+1] != 'X'){
+                        pont_vet_pont[i+1][j]++;
+                    }
+                }
+                else if (j==(colunas-1)){
+                    //não podemos acessar [i][j+1]
+                    if (pont_vet_pont[i][j-1] == '.'){
+                        pont_vet_pont[i][j-1] = '1'; 
+                    }
+                    else if (pont_vet_pont[i][j-1] != 'X'){
+                        pont_vet_pont[i-1][j]++;
+                    }
+                }
+                else {
+                    //podemos acessar [i][j-1] e [i][j+1]
+                    if (pont_vet_pont[i][j+1] == '.'){
+                        pont_vet_pont[i][j+1] = '1'; 
+                    }
+                    else if (pont_vet_pont[i][j+1] != 'X'){
+                        pont_vet_pont[i+1][j]++;
+                    }
+                    if (pont_vet_pont[i][j-1] == '.'){
+                        pont_vet_pont[i][j-1] = '1'; 
+                    }
+                    else if (pont_vet_pont[i][j-1] != 'X'){
+                        pont_vet_pont[i-1][j]++;
+                    }
+                }
+            }
         }
     }
     return;
