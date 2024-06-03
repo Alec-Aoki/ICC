@@ -25,6 +25,32 @@ exemplo:
         pessoa Joao;
         return 0;
     }
+-> podemos retornar structs (exemplo abaixo)
+-> podemos declarar structs dentro de structs
+-> exemplo:
+    struct ponto{
+        int x;
+        int y;
+    };
+    struct linha{
+        struct ponto p1;
+        struct ponto p2;
+    }Linha;
+    int main (void){
+        Linha.p1.x = 0;
+        Linha.p1.y = 0;
+        Linha.p2.x = 5;
+        Linha.p2.y = 3;
+        //P1(0,0)
+        //P2(5,3)
+        return 0;
+    }
+-> structs podem ser declaradas dentro delas mesmas
+
+STRUCTS DE PONTEIROS
+-> um ponteiro do tipo de uma struct aponta para uma variável do tipo dessa struct
+-> exemplo:
+    struct ponto *ponteiro_ponto; ponteiro que aponta para variáveis do tipo "struct ponto"
 */
 
 typedef struct{

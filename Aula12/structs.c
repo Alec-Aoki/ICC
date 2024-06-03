@@ -58,12 +58,12 @@ DECLARAÇÃO DE PONTEIROS DENTRO DE STRUCTS
         int *vetor;
     }poggers;
 
-    poggers a;
+    poggers a; //criação de ponteiros que apontam para um inteiro
     poggers b;
-    a.vetor = (int *)malloc(3*sizeof(int));
+    a.vetor = (int *)malloc(3*sizeof(int)); //ponteiros agora apontam para o início de uma memória na heap
     b.vetor = (int *)malloc(3*sizeof(int));
     
-    a = b; //OBS: ISSO FAZER a APONTAR PARA O MESMO VETOR QUE b
+    a = b; //OBS: ISSO FAZ a APONTAR PARA O MESMO VETOR QUE b
         //logo, mudando a, vamos mudar b tmb
 */
 
