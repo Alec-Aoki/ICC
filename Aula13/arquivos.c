@@ -65,6 +65,8 @@ ARQUIVOS EM C
         -> falha: retorna EOF
     - fputc();
         -> igual ao putc
+        -. OBS: stdout é o arquivo do monitor
+            -> fput(c, stoud); //printa o conteúdo de c direto na tela
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     - fprintf(NOME_DO_PONTEIRO, "MÁSCARAS E/OU TEXTO", NOME_DA_VARIÁVEL);
         -> igual ao printf, mas tem que colocar o nome do ponteiro antes
@@ -73,6 +75,10 @@ ARQUIVOS EM C
         -> igual ao scanf, mas tem que colcoar o nome do ponteiro antes
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     - feof(NOME_DO_PONTEIRO);
+        -> detecta o fim do arquivo;
+    - fgetc(NOME_DO_PONTEIRO);
+        -> pega o caractere apontado pelo ponteiro no arquivo;
+        -> obs: o fim de um arquivo .txt é denotado pelo caractere 'EOF'
     - fseek();
 
 */
