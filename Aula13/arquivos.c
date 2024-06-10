@@ -79,7 +79,13 @@ ARQUIVOS EM C
     - fgetc(NOME_DO_PONTEIRO);
         -> pega o caractere apontado pelo ponteiro no arquivo;
         -> obs: o fim de um arquivo .txt é denotado pelo caractere 'EOF'
-    - fseek();
+    VER NO SLIDE E TERMINAR:
+    - fseek(nome_ponteiro, );
+        -> permite a manipulação do ponteiro do arquivo
+        -> o ponteiro vai passar a apontar para um byte específico
+        -> OBS: o ponteiro sempre começa no começo do arquivo;
+        */
+
 
 */
 
