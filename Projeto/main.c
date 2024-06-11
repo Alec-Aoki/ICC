@@ -23,27 +23,31 @@ typedef struct{
 03 '$'%c[] '$'%c[] | origem e destino do vôo,                      ^
 */
 
-/*Função para checar se abrimos o arquivo corretamente*/
-int Cheque_Arq(FILE *pont_arq){
-    if (pont_arq == NULL){
-        printf("Erro ao abrir arquivo\n");
-        return 1;
-    }
-    else {
-        return 0;
-    }
-}
 
 /*Função de abertura do vôo - AV*/
-void Abertura_Voo(FILE *pont_arq){
-    //Recebemos como parâmetro o ponteiro que aponta para o começo do arquivo
-    int quant_assentos;
-    int preco_economica;
-    int preco_executiva;
-    //Lendo os valores:
-    scanf(" %d %d %d", &quant_assentos, &preco_economica, &preco_executiva);
-    //Escrevendo os valores no arquivo:
-    fprintf(pont_arq, "%d %d %d", quant_assentos, preco_economica, preco_executiva);
+void Abertura_Voo(int *pont_info_voo){
+    /*Lendo os valores:
+    [0] = Quant. de assentos
+    [1] = Valor econômica
+    [2] = Valor executiva
+    */
+    scanf(" %d %d %d", &pont_info_voo[0], &pont_info_voo[1], &pont_info_voo[2]);
+    return;
+}
+
+/*Função de fechamento do dia - FV*/
+void Fim_Dia(FILE *pont_arq, int *pont_info_voo){
+    /*Abertura do arquivo*/
+    //Vamos abrir no modo w para escrevermos as informações nele
+    pont_arq = fopen("voo.txt", "w");
+    if (pont_arq == NULL){
+        printf("Erro ao abrir arquivo\n");
+        exit(1);
+    }
+    /*Escrevendo as informações do vôo no arquivo*/
+    fprintf(pont_arq, "%d %d %d", pont_info_voo[0], pont_info_voo[1], pont_info_voo[2]);
+
+    fclose(pont_arq);
     return;
 }
 
@@ -66,10 +70,17 @@ void Abertura_Voo(FILE *pont_arq){
 
 int main(void)
 {
-    FILE *pont_arq = NULL; //pont_arq será o ponteiro que usaremos para manipular o arquivo
-    int cont_passageiros = 0; //contador que vai guardar a quant. de passageiros no voo
-    passageiro *pont_vet_passageiros = (passageiro *)malloc(sizeof(passageiro)); 
+    //int cont_passageiros = 0; //contador que vai guardar a quant. de passageiros no voo
+    //passageiro *pont_vet_passageiros = (passageiro *)malloc(sizeof(passageiro)); 
     // ^: ponteiro que vai apontar para o início do vetor de passageiros na heap
+
+    /*INFORMAÇÕES DO VOO*/
+    int info_voo[3];
+    /*
+    [0] = Quant. de assentos
+    [1] = Valor econômica
+    [2] = Valor executiva*/
+    int *pont_info_voo = &info_voo[0];
 
     /*RECEBER O COMANDO*/
     //Criando o vetor de chars (string) do comando na heap:
@@ -78,31 +89,23 @@ int main(void)
         printf("Deu ruim no malloc do comando\n");
         return 1;
     }
-
-    //Inicializando a string comando para não termos lixo:
-    strcpy(comando, "00");
     
     //Vamos usar a função strcmp() para saber qual comando foi digitado
     //Nota: ela retorna 0 se as string forem iguais
-    while((strcmp(comando, "FD") != 0) && (strcmp(comando, "FV") != 0)){
+    do {
         scanf( "%s", comando);
         /*ABERTURA DO VOO - AV*/
         if (strcmp(comando, "AV") == 0){
-            //Vamos abrir o arquivo no modo w, pois pretendemos criar e escrever nele
-            pont_arq = fopen("voo.txt", "w");
-            Cheque_Arq(pont_arq);
-            Abertura_Voo(pont_arq);
-            fclose(pont_arq);
+            Abertura_Voo(pont_info_voo);
         }
-        /*Realização de Reserva - RR*/
-        /*else if (strcmp(comando, "RR") == 0){
-            cont_passageiros++;
-            //Vamos abrir o arquivo no modo a, pois pretendemos escrever nele, começando do final
-            pont_arq = fopen("voo.txt", "a");
-            Cheque_Arq(pont_arq);
-            Realizar_Reserva(pont_arq, pont_vet_passageiros, cont_passageiros);
-            fclose(pont_arq);
-        }*/
+    } while((strcmp(comando, "FD") != 0) && (strcmp(comando, "FV") != 0));
+
+    FILE *pont_arq = NULL; //pont_arq será o ponteiro que usaremos para manipular o arquivo
+
+    /*FIM DO DIA - FD*/
+    if (strcmp(comando, "FD") == 0){
+        /*Vamos gravar as informações no arquivo e sair do programa*/
+        Fim_Dia(pont_arq, pont_info_voo);
     }
     free(comando);
     return 0;
