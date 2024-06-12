@@ -84,10 +84,7 @@ ARQUIVOS EM C
         -> permite a manipulação do ponteiro do arquivo
         -> o ponteiro vai passar a apontar para um byte específico
         -> OBS: o ponteiro sempre começa no começo do arquivo;
-        */
-
-
-*/
+    */
 
 int main (void){
     FILE *fp;
