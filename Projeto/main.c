@@ -63,19 +63,15 @@ void Fim_Dia(FILE *pont_arq, int *pont_info_voo){
 
 /*Função de realizar reserva - RR*/
 /* NÃO TERMINADA*/
-/*void Realizar_Reserva(int *point_info_voo, passageiro *pont_vet_passageiros, int cont_passageiros){
+void Realizar_Reserva(int *point_info_voo, passageiro *pont_vet_passageiros, int cont_passageiros){
     //Realocando a memória na heap para criarmos um novo espaço para o passageiro:
     pont_vet_passageiros = (passageiro *)realloc(pont_vet_passageiros, (sizeof(passageiro)*cont_passageiros));
+    //Reduzindo em 1 a quantidade disponível de assentos no vôo:
+    point_info_voo[1]--;
     //Recebendo as informações do passageiro e guardando elas no vetor:
     //Nome:
-    //Sobrenome:
-    //CPF:
-    scanf(" %s", pont_vet_passageiros[cont_passageiros-1].CPF);
-    //Assento: 
-    scanf(" %s", pont_vet_passageiros[cont_passageiros-1].assento);
-    //Classe:
     return;
-}*/
+}
 
 int main(void){
     FILE *pont_arq = NULL; //pont_arq será o ponteiro que usaremos para manipular o arquivo
@@ -88,8 +84,8 @@ int main(void){
     int cont_comandos = 0;
 
     /*INFORMAÇÕES PASSAGEIROS*/
-    /*int cont_passageiros = 0; //contador que vai guardar a quant. de passageiros no voo
-    passageiro *pont_vet_passageiros = (passageiro *)malloc(sizeof(passageiro)); */
+    int cont_passageiros = 0; //contador que vai guardar a quant. de passageiros no voo
+    passageiro *pont_vet_passageiros = (passageiro *)malloc(sizeof(passageiro));
     // ^: ponteiro que vai apontar para o início do vetor de passageiros na heap
 
     /*INFORMAÇÕES DO VOO*/
@@ -132,10 +128,10 @@ int main(void){
         }
 
         /*REALIZAR RESERVA - RR*/
-        /*else if (strcmp(comando, "RR") == 0){
+        else if (strcmp(comando, "RR") == 0){
             cont_passageiros++;
             Realizar_Reserva(pont_info_voo, pont_vet_passageiros, cont_passageiros);
-        }*/
+        }
         cont_comandos++;
     } while((strcmp(comando, "FD") != 0) && (strcmp(comando, "FV") != 0));
 
