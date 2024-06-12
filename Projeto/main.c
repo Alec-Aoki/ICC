@@ -24,8 +24,8 @@ typedef struct{
     char *nome; //Ponteiro que apontará para o vetor de chars (string) nome na heap
     char *sobrenome; // ^
     char CPF[12]; //CPF DE 11 dígitos + /0. Como o tamanho do CPF é sempre o mesmo, não vamos alocá-lo dinamicamente
-    char *assento;
-    char classe[1]; //'C' para econômica, 'X' para executiva
+    char *assento; //Ponteiro que apontará para o vetor de chars (string) assento na heap
+    char classe; //'C' para econômica, 'X' para executiva
 }passageiro;
 
 /*HEADER ARQUIVO
@@ -33,7 +33,7 @@ typedef struct{
 */
 
 /*Função de abertura do vôo - AV*/
-void Abertura_Voo(int *pont_info_voo){
+void Abrir_Voo(int *pont_info_voo){
     /*Lendo os valores:
     [0] = Quant. de assentos TOTAL
     [1] = Quant. de assentos DISPONÍVEIS
@@ -66,10 +66,67 @@ void Fim_Dia(FILE *pont_arq, int *pont_info_voo){
 void Realizar_Reserva(int *point_info_voo, passageiro *pont_vet_passageiros, int cont_passageiros){
     //Realocando a memória na heap para criarmos um novo espaço para o passageiro:
     pont_vet_passageiros = (passageiro *)realloc(pont_vet_passageiros, (sizeof(passageiro)*cont_passageiros));
+    if (pont_vet_passageiros == NULL){
+        printf("Erro ao realocar\n");
+        exit(1);
+    }
+
     //Reduzindo em 1 a quantidade disponível de assentos no vôo:
     point_info_voo[1]--;
+
     //Recebendo as informações do passageiro e guardando elas no vetor:
     //Nome:
+    char string_temp[100] = "0"; //Vetor temporário para guardarmos caracteres
+    scanf(" %s", &string_temp);
+    //O ponteiro nome do passageiro agora aponta para um espaço na heap:
+    pont_vet_passageiros[cont_passageiros-1].nome = (char *)malloc(strlen(string_temp)*sizeof(char));
+    if (pont_vet_passageiros[cont_passageiros-1].nome == NULL){
+        printf("Erro ao alocar\n");
+        exit(1);
+    }
+    //Atribuindo cada caractere de nome_temp ao vetor apontado pelo nome da struct:
+    for (int i=0; i<=strlen(string_temp); i++){
+        pont_vet_passageiros[cont_passageiros-1].nome[i] = string_temp[i];
+    }
+
+    //Sobrenome:
+    scanf(" %s", &string_temp);
+    //O ponteiro sobrenome do passageiro agora aponta para um espaço na heap:
+    pont_vet_passageiros[cont_passageiros-1].sobrenome = (char *)malloc(strlen(string_temp)*sizeof(char));
+    if (pont_vet_passageiros[cont_passageiros-1].sobrenome == NULL){
+        printf("Erro ao alocar\n");
+        exit(1);
+    }
+    //Atribuindo cada caractere de nome_temp ao vetor apontado pelo nome da struct:
+    for (int i=0; i<strlen(string_temp); i++){
+        pont_vet_passageiros[cont_passageiros-1].sobrenome[i] = string_temp[i];
+    }
+
+    //CPF:
+    scanf(" %s", &pont_vet_passageiros[cont_passageiros-1].CPF);
+
+    //Assento:
+    scanf(" %s", &string_temp);
+    //O ponteiro sobrenome do passageiro agora aponta para um espaço na heap:
+    pont_vet_passageiros[cont_passageiros-1].assento = (char *)malloc(strlen(string_temp)*sizeof(char));
+    if (pont_vet_passageiros[cont_passageiros-1].assento == NULL){
+        printf("Erro ao alocar\n");
+        exit(1);
+    }
+    //Atribuindo cada caractere de nome_temp ao vetor apontado pelo nome da struct:
+    for (int i=0; i<strlen(string_temp); i++){
+        pont_vet_passageiros[cont_passageiros-1].assento[i] = string_temp[i];
+    }
+
+    //Classe:
+    scanf(" %c", &pont_vet_passageiros[cont_passageiros-1].classe);
+
+    /*TESTE - APAGAR DEPOIS*/
+    printf("Nome: %s\n", pont_vet_passageiros[cont_passageiros-1].nome);
+    printf("Sobrenome: %s\n", pont_vet_passageiros[cont_passageiros-1].sobrenome);
+    printf("CPF: %s\n", pont_vet_passageiros[cont_passageiros-1].CPF);
+    printf("Assento %s\n", pont_vet_passageiros[cont_passageiros-1].assento);
+    printf("Classe: %c\n", pont_vet_passageiros[cont_passageiros-1].classe);
     return;
 }
 
@@ -77,9 +134,9 @@ int main(void){
     FILE *pont_arq = NULL; //pont_arq será o ponteiro que usaremos para manipular o arquivo
 
     /*CONTADOR DE COMANDOS
-    -> vamos usar esse contador para saber quando temos que ler o arquivo
-    -> se o contador for 0, vamos ler o arquivo
-    -> senão, não o lemos
+    -> Vamos usar esse contador para saber quando temos que ler o arquivo
+    -> Se o contador for 0, vamos ler o arquivo
+    -> Senão, não o lemos
     */
     int cont_comandos = 0;
 
@@ -99,11 +156,7 @@ int main(void){
 
     /*RECEBER O COMANDO*/
     //Criando o vetor de chars (string) do comando na heap:
-    char *comando = (char *)malloc(sizeof(char)*3);
-    if (comando == NULL){
-        printf("Deu ruim no malloc do comando\n");
-        return 1;
-    }
+    char comando[3];
     
     //Vamos usar a função strcmp() para saber qual comando foi digitado
     //Nota: ela retorna 0 se as string forem iguais
@@ -124,7 +177,7 @@ int main(void){
 
         /*ABERTURA DO VOO - AV*/
         if (strcmp(comando, "AV") == 0){
-            Abertura_Voo(pont_info_voo);
+            Abrir_Voo(pont_info_voo);
         }
 
         /*REALIZAR RESERVA - RR*/
@@ -140,6 +193,5 @@ int main(void){
         /*Vamos gravar as informações no arquivo e sair do programa*/
         Fim_Dia(pont_arq, pont_info_voo);
     }
-    free(comando);
     return 0;
 }
