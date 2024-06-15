@@ -4,7 +4,7 @@
 
 /*
 ALEC CAMPOS AOKI - 15436800
-NEWTON - BOTA TEU SOBRENOME E N USP AQ
+NEWTON EDUARDO PENA VILLEGAS - 15481732
 JUAN HENRIQUES PASSOS - 15464826
 */
 
@@ -347,11 +347,11 @@ void Modificar_Reserva(aviao *voo, passageiro **pont_vet_passageiros,int cont_pa
     }
 
     //CPF:
-    scanf(" %s ", (*pont_vet_passageiros)[posicao].CPF);
+    scanf(" %s", (*pont_vet_passageiros)[posicao].CPF);
     ((*pont_vet_passageiros)[posicao].CPF)[14] = '\0';
 
     //Assento:
-    scanf(" %s ", (*pont_vet_passageiros)[posicao].assento);
+    scanf(" %s", (*pont_vet_passageiros)[posicao].assento);
     ((*pont_vet_passageiros)[posicao].assento)[3] = '\0';
 
     printf("Reserva Modificada:\n");
@@ -522,4 +522,3 @@ void Liberar_Ponteiros(passageiro *pont_vet_passageiros, int cont_passageiros){
     free(pont_vet_passageiros);
     return;
 }
-
