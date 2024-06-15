@@ -1,7 +1,0 @@
-5 3 100.000000 200.000000
-SAO RIO 10/02/2024 V001
-2
-5 5
-David Clark 321.654.987-00 A02 economica
-3 6
-Eve Miller 789.123.456-00 A02 executiva
