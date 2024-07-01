@@ -9,7 +9,7 @@
     -> toda recursão tem o caminho de volta
     -> temos que definir a solução trivial na mão para não entrarmos em um loop
 -> obs: a função recursiva exige mais espaço na memória (copia a variável usada) e é mais lento
--> que a versão interativa
+-> que a versão iterativa
 
     RECURSÃO DIRETA
     -> P chama P (diretamente)
