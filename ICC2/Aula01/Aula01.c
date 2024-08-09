@@ -1,43 +1,66 @@
+/*GERANDO UMA LISTA DE NÚMEROS ALEATÓRIOS*/
+/*FAZER OPÇÃO DE GRAVAR EM TEXTO OU BINÁRIO*/
+
+/*BIBLIOTECAS*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
-/*GERANDO UMA LISTA DE NÚMEROS ALEATÓRIOS*/
+/*STRUCTS*/
+typedef struct{
+    int *pont; //ponteiro que aponta para a lista de numeros, alocada dinamicamente
+    int tamanho; //quantidade de elementos na lista
+}lista;
 
-void printarLista(int *pont_lista, int tam_Lista);
+/*PROTOTIPAGEM DAS FUNÇÕES*/
+//void printarLista(int *pont_lista, int tam_Lista);
+void escreverArquivo(lista listaAleatoria);
 
-
+/*MAIN*/
 int main(void){
-    int *pont_listaNumeros; //ponteiro que aponta para a lista de numeros, alocada dinamicamente
-    int tamanho_listaNumeros;
+    lista listaAleatoria;
 
     //gera uma seed a partir do horário (logo, é única)
     srand(time(NULL));
 
     printf("Digite o tamanho da lista de numeros:\n");
-    scanf("%d", &tamanho_listaNumeros);
+    scanf("%d", &listaAleatoria.tamanho);
 
-    pont_listaNumeros = (int *)malloc(tamanho_listaNumeros*sizeof(int));
-    if(pont_listaNumeros == NULL) exit(1);
+    listaAleatoria.pont = (int *)malloc(listaAleatoria.tamanho*sizeof(int));
+    if(listaAleatoria.pont == NULL) exit(1);
 
-    for(int i=0; i<tamanho_listaNumeros; i++){
-        pont_listaNumeros[i] = rand();
+    for(int i=0; i<listaAleatoria.tamanho; i++){
+        listaAleatoria.pont[i] = rand();
     }
 
-    printarLista(pont_listaNumeros, tamanho_listaNumeros);
+    escreverArquivo(listaAleatoria);
 
-    free(pont_listaNumeros);
-    pont_listaNumeros = NULL;
+    free(listaAleatoria.pont);
+    listaAleatoria.pont = NULL;
 
     return 0;
 }
 
 /*FUNÇÕES*/
+// void printarLista(int *pont_lista, int tam_Lista){
+//     for(int i=0; i<tam_Lista; i++){
+//         printf("%d\n", pont_lista[i]);
+//     }
 
-void printarLista(int *pont_lista, int tam_Lista){
-    for(int i=0; i<tam_Lista; i++){
-        printf("%d\n", pont_lista[i]);
+//     return;
+// }
+
+void escreverArquivo(lista listaAleatoria){
+    FILE *fp;
+    fp = fopen("arquivoListaAleatoria.bin", "wb");
+
+    if(fp == NULL){
+        printf("Erro ao abrir arquivo!\n");
     }
 
-    return;
+    fwrite(listaAleatoria.pont, sizeof(int), listaAleatoria.tamanho, fp);
+
+    fclose(fp);
+    fp = NULL;
 }
