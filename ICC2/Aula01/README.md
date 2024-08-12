@@ -42,3 +42,8 @@ unsigned long int fibonacci(unsigned long int n){
     return(fibonacci(n-1) + fibonacci(n-2));
 }
 ```
+
+##Recursividade de Cauda
+-> quanto a recursividade vem no fim da função, servindo apenas como um loop
+
+-> pode ser facilmente trasnformada em sua versão iterativa
