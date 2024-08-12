@@ -3,6 +3,7 @@
 2. Definir a condição de término (básica/trivial)
 - Fatorial:
     - F(n) = n! = { 1, n = 1 ou n = 0
+    
                   { n*(n-1)!, n > 1
 ```c
 int fatorial(int n){
@@ -29,6 +30,7 @@ return 6
 ```
 - Fibonacci:
     - F(n) = { 1, n < 2
+
              { F(n-1) + F(n-2), n > 2
     - note que temos que calcular várias vezes, repetidamente, o mesmo valor, o que torna essa recursão muito lenta
 ```c
