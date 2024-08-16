@@ -20,14 +20,13 @@ exemplo:
 
 ## FUNÇÕES PARA MANIPULAR STRINGS
 ```c
-gets(str);
+gets(str); //NÃO USAR, não verifica o tamanho da string, então pode invadir memória
+
 ```
-* NÃO USAR, não verifica o tamanho da string, então pode invadir memória
 
 ```c
-puts(str);
+puts(str); //printf que só funciona pra string, vai imprimindo até achar o \0
 ```
-* printf que só funciona pra string, vai imprimindo até achar o \0
 
 ```c
 scanf(" %s", str);
@@ -51,19 +50,17 @@ fgets();
 
 ## BIBLIOTECA STRING.H
 ```c
-strcpy(s1, s2);
+strcpy(s1, s2); //copia o conteudo de s1 pra dentro de s2
 ```
-* copia o conteudo de s1 pra dentro de s2
 
 ```c
-strcat(s1, s2);
+strcat(s1, s2); //concatena s2 ao final de s1
 ```
-* concatena s2 ao final de s1
 
 ```c
-strlen(s1);
+strlen(s1); //retorna o tamanho de s1, SEM contar o \0 (mas conta o \n, eu acho), em um unsigned long int
+
 ```
-* retorna o tamanho de s1, SEM contar o \0 (mas conta o \n, eu acho), em um unsigned long int
 
 ```c
 strcmp(s1,s2);
