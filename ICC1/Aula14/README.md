@@ -3,7 +3,8 @@
 -> chamar uma função dentro dela mesma, mas passando MENOS dados <br />
 - solução geral <-> solução trivial
     - toda recursão tem o caminho de volta
-    - temos que definir a solução trivial na mão para não entrarmos em um loop <br />
+    - temos que definir a solução trivial na mão para não entrarmos em um loop
+
 -> obs: a função recursiva exige mais espaço na memória (copia a variável usada) e é mais lento <br />
 -> que a versão iterativa
 
