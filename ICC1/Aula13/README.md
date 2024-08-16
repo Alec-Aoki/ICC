@@ -116,11 +116,12 @@ fseek(nome_ponteiro, ); //permite a manipulação do ponteiro do arquivo
     -> caractere mesmo (char) pq tem 1 byte, e queremos copiar de byte a byte
     
 ## OPERAÇÃO COM MAIS DE 1 BYTE
--> se quisermos operar com ints, não poderíamos fazer o mesmo q acima <br />
-    -> temos q usar fwrite() e fread() para ler ou escrever mais que 1 byte <br />
-    -> fwrite(&nome_variável, sizeof(tipo_da_variável), quant_de_vezes, nome_ponteiro); <br />
-    -> fread(&nome_variável, sizeof(tipo_da_variável), quant_de_vezes, nome_ponteiro); <br />
-        -> retorna 0 se dá erro
+- se quisermos operar com ints, não poderíamos fazer o mesmo q acima <br />
+    - temos q usar fwrite() e fread() para ler ou escrever mais que 1 byte <br />
+    - fwrite(&nome_variável, sizeof(tipo_da_variável), quant_de_vezes, nome_ponteiro); <br />
+    - fread(&nome_variável, sizeof(tipo_da_variável), quant_de_vezes, nome_ponteiro); <br />
+        - retorna 0 se dá erro
+
 exemplo:
 ```c
     scanf("%d", &num); //num um int, pont_arq o ponteiro para o arquivo
