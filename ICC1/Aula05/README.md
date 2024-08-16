@@ -7,11 +7,11 @@ OBS: os tipos do ponteiro e da variável tem que ser os mesmos!!!
     p = (int *)&B; //transforma &B em um ponteiro inteiro
 ```
 ## OPERADORES
-    - &: endereço: retorna o endereço
+- &: endereço: retorna o endereço
 ```c
     p = &a //(p recebe o endereço de a)
 ```
-    - *: derreferência: retorna o conteúdo apontado pelo ponteiro
+- *: derreferência: retorna o conteúdo apontado pelo ponteiro
 ```c
     q = *p //(q recebe o conteúdo guardado no endereço guardado em p)
     *p = 36 //(o endereço guardado em p recebe 36)
