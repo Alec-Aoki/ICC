@@ -19,17 +19,27 @@ exemplo:
 ```
 
 ## FUNÇÕES PARA MANIPULAR STRINGS
--> gets(str);<br />
+```c
+gets(str);
+```
 * NÃO USAR, não verifica o tamanho da string, então pode invadir memória
 
--> puts(str);<br />
+```c
+puts(str);
+```
 * printf que só funciona pra string, vai imprimindo até achar o \0
 
--> scanf(" %s", str); <br />
+```c
+scanf(" %s", str);
+```
 
--> print("%s", str); <br />
+```c
+print("%s", str);
+```
 
--> **fgets();**
+```c
+fgets();
+```
 * usada para leitura de arquivos, já que o buffer do telcado é tecnicamente um arquivo
     ```c
     char *fgets(char *str, int tamanho, FILE *fp);
@@ -40,16 +50,24 @@ exemplo:
     * OBS: ela lê espaço!!!
 
 ## BIBLIOTECA STRING.H
--> strcpy(s1, s2);
+```c
+strcpy(s1, s2);
+```
 * copia o conteudo de s1 pra dentro de s2
 
--> strcat(s1, s2);
+```c
+strcat(s1, s2);
+```
 * concatena s2 ao final de s1
 
--> strlen(s1);
+```c
+strlen(s1);
+```
 * retorna o tamanho de s1, SEM contar o \0 (mas conta o \n, eu acho), em um unsigned long int
 
--> strcmp(s1,s2);
+```c
+strcmp(s1,s2);
+```
 * retorna 0 se s1 == s2, um valor < 0 se s1 < s2 e um valor > 0 se s1 > s2
     * ele compara os valores da tabela ASCII (lexicograficamente), caractere por caractere
     * se os caracteres forem diferentes, ele vai usar eles
