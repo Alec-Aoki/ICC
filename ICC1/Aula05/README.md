@@ -18,7 +18,7 @@ OBS: os tipos do ponteiro e da variável tem que ser os mesmos!!!
 ```
     
 ## EXPRESSÕES
-    - atribuição: igual a variáveis iguais
+- atribuição: igual a variáveis iguais
 ```c
     int x=0, *p1, *p2;
     p1 = &x;
@@ -26,19 +26,19 @@ OBS: os tipos do ponteiro e da variável tem que ser os mesmos!!!
 ```
 
 ## ARITMÉTICA
-    - incremento/decremento: altera o endereço na quantidade de bytes BASE da memória
-        - (supondo que um inteiro tem 2 bytes (base=2 bytes))
+- incremento/decremento: altera o endereço na quantidade de bytes BASE da memória
+    - (supondo que um inteiro tem 2 bytes (base=2 bytes))
 ```c
     int *p=2000;
     p++; //(*p=2002)
 ```
-    - comparação: compara-se os endereços armazenados nos ponteiros, NÃO o valor desses endereços
-    - adição/subtração:
+- comparação: compara-se os endereços armazenados nos ponteiros, NÃO o valor desses endereços
+- adição/subtração:
 ```c
     int *p=2000;
     p = p+2; //(*p=2004, já que a base é 2 bytes)
 ```
-        - OBS: p = p + q não é possível!!! o outro operando além do ponteiro tem que ser inteiro
+- OBS: p = p + q não é possível!!! o outro operando além do ponteiro tem que ser inteiro
 ```c
     int *p, *q, x; //(&p=2008, &q=2016)
     int a=2, b=3;
@@ -54,9 +54,9 @@ OBS: os tipos do ponteiro e da variável tem que ser os mesmos!!!
     q = &p;
     printf("%f\n", **q); // 5.7000
 ```
-        - OBS: q = &x; estaria ERRADO!! q só pode apontar para outro ponteiro!
+- OBS: q = &x; estaria ERRADO!! q só pode apontar para outro ponteiro!
 
 ## ERROS COMUNS
-    1) Esquecer de inicializar ponteiro ((p=&x;) ou (int *p=null;))
-    2) Inicializar ponteiro sem o &
-    - OBS: i = *&*&j <=> i = j
+1) Esquecer de inicializar ponteiro ((p=&x;) ou (int *p=null;))
+2) Inicializar ponteiro sem o &
+- OBS: i = *&*&j <=> i = j
