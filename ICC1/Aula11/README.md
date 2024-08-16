@@ -59,7 +59,6 @@ strcat(s1, s2); //concatena s2 ao final de s1
 
 ```c
 strlen(s1); //retorna o tamanho de s1, SEM contar o \0 (mas conta o \n, eu acho), em um unsigned long int
-
 ```
 
 ```c
