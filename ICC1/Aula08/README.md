@@ -3,7 +3,7 @@ A função main vai servir para organizar a executar (chamar) as funções, que 
 Quebraremos o problema em partes menores (funções) <br />
 
 Praxe: declar. da função -> def. da função -> main <br />
-  obs: para usarmos uma função, temos que ter definido ela antes. não é obrigatório declarar elas <br />
+* obs: para usarmos uma função, temos que ter definido ela antes. não é obrigatório declarar elas <br />
 
 ```c
 tipo nome(parâmetros){
@@ -12,7 +12,7 @@ tipo nome(parâmetros){
 ```
 
 parâmetros: variáveis "de fora pra dentro" da função. todas variáveis declaradas no parâmetro podem ser usadas dentro da função. <br />
-  variáveis declaradas dentro das funções e declaradas no parâmetro só existem dentro dela <br />
+* variáveis declaradas dentro das funções e declaradas no parâmetro só existem dentro dela <br />
 tipo: se a função não retornar valores, seu tipo é void. conversões automáticas acontecem no return tmb <br />
 
 obs: só dá pra retornar UMA variável na função <br />
