@@ -1,5 +1,5 @@
 # DIVISÃO DE MEMÓRIA
--> a memória RAM é separada em **Pilha**, **Heap**, **Dados** e **Código**
+-> a memória RAM é separada em **Pilha**, **Heap**, **Dados** e **Código** <br />
 * Código: contém as instruções (todas) do programa
 * Dados: onde ficam guardadas as variáveis globais
 * Heap: memória livre para alocarmos dinamicamente, maior porção
@@ -11,7 +11,7 @@
 * calloc(): cria espaço na memória *contíguamente* (um na frente do outro) -> vetores
 * malloc(): cria espaço na memória
 * realloc(): realoca espaço previamente alocado
-* free(): libera espaço criado pelas duas primeiras funções
+* free(): libera espaço criado pelas duas primeiras funções <br />
 -> observações:
 * NULL: valor nulo
 * ponteiro NULL: não aponta pra nada
@@ -53,7 +53,7 @@
     }
 ```
 ### Diferença entre MALLOC e CALLOC:
--> em essência, o CALLOC zera os espaços e o MALLOC não, simples assim
+-> em essência, o CALLOC zera os espaços e o MALLOC não, simples assim <br />
 
 ## FREE:
 ```c
@@ -68,6 +68,7 @@
     //se você não der free, a memória só vai ser liberada quando o programa terminar
     //OBS: é boa prática dar free sempre que você não for mais usar aquela memória
 ```
+
 ## REALLOC:
 ```c
     void* realloc(void *ptr, size_t size);
