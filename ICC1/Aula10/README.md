@@ -12,6 +12,7 @@
 * malloc(): cria espaço na memória
 * realloc(): realoca espaço previamente alocado
 * free(): libera espaço criado pelas duas primeiras funções <br />
+
 -> observações:
 * NULL: valor nulo
 * ponteiro NULL: não aponta pra nada
