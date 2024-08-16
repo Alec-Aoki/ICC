@@ -1,7 +1,7 @@
 # ARRAYS/VETORES/ARRANJOS
--> coleção de variáveis (elementos) do mesmo tipo referenciadas por um nome/identificador comum, indiciado
--> ocupam posições contíguas na memória
--> podem ter mais de uma dimensão (em C)
+- coleção de variáveis (elementos) do mesmo tipo referenciadas por um nome/identificador comum, indiciado
+- ocupam posições contíguas na memória
+- podem ter mais de uma dimensão (em C)
 
 ## Caso Unidimensional:
 ```c
