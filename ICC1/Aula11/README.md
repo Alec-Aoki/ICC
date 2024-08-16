@@ -21,10 +21,14 @@ exemplo:
 ## FUNÇÕES PARA MANIPULAR STRINGS
 -> gets(str);<br />
 * NÃO USAR, não verifica o tamanho da string, então pode invadir memória
+
 -> puts(str);<br />
 * printf que só funciona pra string, vai imprimindo até achar o \0
+
 -> scanf(" %s", str); <br />
+
 -> print("%s", str); <br />
+
 -> **fgets();**
 * usada para leitura de arquivos, já que o buffer do telcado é tecnicamente um arquivo
     ```c
