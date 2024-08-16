@@ -42,10 +42,13 @@ exemplo:
 ## BIBLIOTECA STRING.H
 -> strcpy(s1, s2);
 * copia o conteudo de s1 pra dentro de s2
+
 -> strcat(s1, s2);
 * concatena s2 ao final de s1
+
 -> strlen(s1);
 * retorna o tamanho de s1, SEM contar o \0 (mas conta o \n, eu acho), em um unsigned long int
+
 -> strcmp(s1,s2);
 * retorna 0 se s1 == s2, um valor < 0 se s1 < s2 e um valor > 0 se s1 > s2
     * ele compara os valores da tabela ASCII (lexicograficamente), caractere por caractere
