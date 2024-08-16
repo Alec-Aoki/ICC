@@ -2,57 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* STRUCTS
--> uma coleção de variáveis (elementos/campos, que podem ser de tipos diferentes), organizadas em um único conjunto
-exemplo:
-    struct pessoa{
-        char nome[30];
-        int idade;
-    };
-    int main(void){
-        struct pessoa Joao;
-        strcpy(Joao.nome, "Joao");
-        Joao.idade = 18;
-        return 0;
-    }
--> o tamanho de uma variável do tipo da struct é a soma do tamanho das variáveis que a struct tem
--> exemplo usando typedef:
-    typedef struct{
-        int nome[30];
-        int idade;
-    }pessoa;
-    int main (void){
-        pessoa Joao;
-        return 0;
-    }
--> podemos retornar structs (exemplo abaixo)
--> podemos declarar structs dentro de structs
--> exemplo:
-    struct ponto{
-        int x;
-        int y;
-    };
-    struct linha{
-        struct ponto p1;
-        struct ponto p2;
-    }Linha;
-    int main (void){
-        Linha.p1.x = 0;
-        Linha.p1.y = 0;
-        Linha.p2.x = 5;
-        Linha.p2.y = 3;
-        //P1(0,0)
-        //P2(5,3)
-        return 0;
-    }
--> structs podem ser declaradas dentro delas mesmas
-
-STRUCTS DE PONTEIROS
--> um ponteiro do tipo de uma struct aponta para uma variável do tipo dessa struct
--> exemplo:
-    struct ponto *ponteiro_ponto; ponteiro que aponta para variáveis do tipo "struct ponto"
-*/
-
 typedef struct{
     int numerador;
     int denominador;
