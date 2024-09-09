@@ -1,6 +1,8 @@
 # MERGE SORT
 -> ordenação por intercalação <br />
 -> O(nlog(n)) <br />
+-> T(n) = O(1), n = 1 <br />
+-> T(n) = 2*T(n/2) + O(n), n>1 <br />
 1. quebrar o array na metade até que se obtenha arrays unitários
 2. ordernar os dois arrays e uní-los
 3. repetir
