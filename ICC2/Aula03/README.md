@@ -22,7 +22,6 @@
 ```c
 void intercala(int v[], int inicio, int meio, int fim){
     int n1, n2;
-
     n1 = meio-inicio+1;
     n2 = fim-meio;
 
