@@ -65,13 +65,13 @@ void swap(str_t *a, str_t *b){
 -> para um vetor de *n* elementos, são necessárias *n-1* iterações em um passo (o último elemento estará na posição certa) <br />
 -> complexidade do melhorado: <br />
 
-$i=0 -> n-1$ <br />
-$i=1 -> n-2$ <br />
-$i=2 -> n-3$ <br />
-$i -> n-i-1$ <br />
-$i=n-2 -> n-(n-2)-1 = n-n+2-1 = n-n+1 = 1$ <br />
-$\displaystyle T(n) = \frac{ (a_o + a_n) q_n }{ 2 } = \frac{ ((n-1) + 1) (n-1) }{ 2 } =$ <br />
-$= \frac{ n^2 - n }{ 2 } = \frac{ n^2 }{ 2 } = O(n^2)$ <br />
+$i=0 \rightarrow n-1$ <br />
+$i=1 \rightarrow n-2$ <br />
+$i=2 \rightarrow n-3$ <br />
+$i \rightarrow n-i-1$ <br />
+$i=n-2 \rightarrow n-(n-2)-1 = n-n+2-1 = n-n+1 = 1$ <br /> <br />
+$\displaystyle T(n) = \frac{ (a_o + a_n) q_n }{ 2 } = \frac{ ((n-1) + 1) (n-1) }{ 2 } =$ <br /> <br />
+$= \frac{ n^2 - n }{ 2 } = \frac{ n^2 }{ 2 } = O(n^2)$ <br /> <br />
 
 -> melhor caso do normal (já ordenado): O(n^2) <br />
 -> pior caso do normal (inversamente ordenado): O(n^2) <br />
