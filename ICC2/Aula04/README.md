@@ -67,11 +67,17 @@ void swap(str_t *a, str_t *b){
 
 ```math
 i=0 -> n-1
+\newline
 i=1 -> n-2
+\newline
 i=2 -> n-3
+\newline
 i -> n-i-1
+\newline
 i=n-2 -> n-(n-2)-1 = n-n+2-1 = n-n+1 = 1
+\newline
 \displaystyle T(n) = \frac{ (a_o + a_n) q_n }{ 2 } = \frac{ ((n-1) + 1) (n-1) }{ 2 } =
+\newline
 = \frac{ n^2 - n }{ 2 } = \frac{ n^2 }{ 2 } = O(n^2)
 ```
 
