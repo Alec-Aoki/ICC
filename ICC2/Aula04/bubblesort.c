@@ -1,30 +1,29 @@
 #include <stdio.h>
 
 /*Bubblesort melhorado*/
-
 void bubblesort(int v[], int tam){
     int aux;
 
     for(int i=0; i<tam; i++){
+        int trocas = 0;
+
         for(int j=0; j<(tam-1)-i; j++){
-            int trocas = 0;
-            
             if(v[j] > v[j+1]){
                 trocas++;
-                aux = v[j+1];
-                v[j+1] = v[j];
-                v[j] = aux;
+                aux = v[j];
+                v[j] = v[j+1];
+                v[j+1] = aux;
             }
-
-            if(trocas == 0) return;
         }
+
+        if(trocas == 0) return;
     }
 
     return;
 }
 
 int main(void){
-    int v[] = {4,6,8,1,3,9,-1,7,0};
+    int v[] = {4,6,3,1,3,9,-1,7,0};
 
     bubblesort(v, 9);
 
