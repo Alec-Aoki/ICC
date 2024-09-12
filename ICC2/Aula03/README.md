@@ -35,16 +35,16 @@ void intercala(int v[], int inicio, int meio, int fim){
     for(int i=0; i<n2; i++){
         R[i] = v[meio+i];
     }
-    L[n1] = sizeof(int); //para j não estourar no loop lá debaixo
+    R[n1] = sizeof(int); //para j não estourar no loop lá debaixo
 
     int i=0, j=0;
     for(int k=inicio; k<=fim; k++){
-        if(L[i] < L[j]>){
+        if(L[i] < R[j]){
             v[k] = L[i];
             i++;
         }
         else{
-            v[l] = R[j];
+            v[k] = R[j];
             j++;
         }
     }
