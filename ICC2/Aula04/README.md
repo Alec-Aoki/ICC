@@ -63,6 +63,21 @@ void swap(str_t *a, str_t *b){
 -> percorrer o vetor múltiplas vezes e comparar os elementos na posição *i* e *i+1* <br />
 -> se o elemento na posição *i* for maior que a posição *i+1*, trocar eles de lugar <br />
 -> para um vetor de *n* elementos, são necessárias *n-1* iterações em um passo (o último elemento estará na posição certa) <br />
+-> complexidade do melhorado: <br />
+
+$$ i=0 -> n-1 $$
+$ i=1 -> n-2 $
+$ i=2 -> n-3 $
+$ i -> n-i-1 $
+$ i=n-2 -> n-(n-2)-1 = n-n+2-1 = n-n+1 = 1 $
+$ \displaystyle T(n) = \frac{ (a_o + a_n) q_n }{ 2 } = \frac{ ((n-1) + 1) (n-1) }{ 2 } = $
+$ = \frac{ n^2 - n }{ 2 } = \frac{ n^2 }{ 2 } = O(n^2) $
+
+-> melhor caso do normal (já ordenado): O(n^2) <br />
+-> pior caso do normal (inversamente ordenado): O(n^2) <br />
+
+-> melhor caso do aprimorado (já ordenado): O(n) <br />
+-> pior caso do aprimorado (inversamente ordenado): O(n^2) <br />
 
 ```c
     void bubblesort(int v[], int tam){
