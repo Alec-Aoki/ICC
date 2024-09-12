@@ -5,6 +5,9 @@
 ## Terminologia/Conceitos
 - ordenação de registros
     - cada registro é ordenado por sua **chave**!
+    - registros complexos: + de uma informação
+    - registros não-complexos: uma só informação
+    - métodos de ordenação independem da complexidade do registro
 - ordenação **interna x externa**
     - interna: ordenação utilizando a memória principal
     - externa: ordenação fora da memória principal (em arquivos, por exemplo)
@@ -18,6 +21,7 @@
     - a ordem de registros se mantém a mesma
     - os ponteiros mudam os endereços para que apontam, de forma que o primeiro ponteiro aponte para a chave 1, o segundo para a chave 2, e assim por diante
 
+-> exemplo de ordenação sobre os próprios registros:
 ```c
 #include <stdio.h>
 #include <string.h>
@@ -53,4 +57,45 @@ void swap(str_t *a, str_t *b){
     *a = *b;
     *b = aux;
 }
+```
+
+## Bubblesort
+-> percorrer o vetor múltiplas vezes e comparar os elementos na posição *i* e *i+1* <br />
+-> se o elemento na posição *i* for maior que a posição *i+1*, trocar eles de lugar <br />
+-> para um vetor de *n* elementos, são necessárias *n-1* iterações em um passo (o último elemento estará na posição certa) <br />
+
+```c
+    void bubblesort(int v[], int tam){
+        int aux;
+
+        for(int i=0; i<tam; i++){
+            for(int j=0; j<tam-1; j++){ //como a cada passo o último elemento já está ordenado, podemos trocar tam-1 por (tam-1)-i
+                //int trocas = 0;
+                if(v[j] > v[j+1]){
+                    //trocas++;
+                    aux = v[j+1];
+                    v[j+1] = v[j];
+                    v[j] = aux;
+                }
+                /*
+                if(trocas == 0) return; // o vetor já está ordenado, não precisamos continuar iterando
+                */
+            }
+        }
+
+        return;
+    }
+
+    int main(void){
+        int v[] = {4,6,8,1,3,9,-1,7,0};
+
+        bubblesort(v, 9);
+
+        for(int i=0; i<9; i++){
+            printf("%d ", v[i]);
+        }
+        printf("\n");
+
+        return 0;
+    }
 ```
