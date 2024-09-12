@@ -71,13 +71,13 @@ $i=2 \rightarrow n-3$ <br />
 $i \rightarrow n-i-1$ <br />
 $i=n-2 \rightarrow n-(n-2)-1 = n-n+2-1 = n-n+1 = 1$ <br /> <br />
 $\displaystyle T(n) = \frac{ (a_o + a_n) q_n }{ 2 } = \frac{ ((n-1) + 1) (n-1) }{ 2 } =$ <br /> <br />
-$= \frac{ n^2 - n }{ 2 } = \frac{ n^2 }{ 2 } = O(n^2)$ <br /> <br />
+$\displaystyle = \frac{ n^2 - n }{ 2 } = \frac{ n^2 }{ 2 } = O(n^2)$ <br /> <br />
 
--> melhor caso do normal (já ordenado): O(n^2) <br />
--> pior caso do normal (inversamente ordenado): O(n^2) <br />
+-> melhor caso do normal (já ordenado): $O(n^2)$ <br />
+-> pior caso do normal (inversamente ordenado): $O(n^2)$ <br />
 
--> melhor caso do aprimorado (já ordenado): O(n) <br />
--> pior caso do aprimorado (inversamente ordenado): O(n^2) <br />
+-> melhor caso do aprimorado (já ordenado): $O(n)$ <br />
+-> pior caso do aprimorado (inversamente ordenado): $O(n^2)$ <br />
 
 ```c
     void bubblesort(int v[], int tam){
