@@ -36,6 +36,7 @@ struct aluno_{
 bool lista_inserir(LISTA *lista, ALUNO *aluno);
 void lista_imprimir(LISTA *lista);
 
+
 //argv[0]    argv[1]    argv[2]
 //./main    nomearquivo    k
 int main(int argc, char *argv[]){ 
@@ -49,8 +50,8 @@ int main(int argc, char *argv[]){
     lista->tamanho = 0;
 
     /*criando a inserindo os primeiros k alunos*/
-    //while(lista->tamanho < k){
-    for(int i=0; i<k; i++){
+    while(lista->tamanho < k){
+    //for(int i=0; i<k; i++){
         ALUNO *alunoAux = (ALUNO *)malloc(sizeof(ALUNO));
         float n1, n3;
         
@@ -105,7 +106,7 @@ bool lista_inserir(LISTA *lista, ALUNO *aluno){
             pontAux = pontAux->noSeguinte;
         }
         else if(pontAux->aluno->aumento == aluno->aumento){ //pontAux->aluno->aumento == aluno->aumento
-            //lista->tamanho--;
+            lista->tamanho--;
             /*inserindo paralelamente*/
             if(strcmp(noNovo->aluno->nome, pontAux->aluno->nome) < 0){
                 if(lista->fim == pontAux) lista->fim = noNovo;
@@ -160,9 +161,9 @@ void lista_imprimir(LISTA *lista){
 
     while(pontNo != NULL){
         pontParalelos = pontNo->noParalelo;
-        printf("%s %d\n", pontNo->aluno->nome, pontNo->aluno->aumento);
+        printf("%s\n", pontNo->aluno->nome);
         while(pontParalelos != NULL){
-            printf("%s %d\n", pontParalelos->aluno->nome, pontParalelos->aluno->aumento);
+            printf("%s\n", pontParalelos->aluno->nome);
             pontParalelos = pontParalelos->noParalelo;
         }
         pontNo = pontNo->noSeguinte;
