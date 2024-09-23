@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define ERRO -1;
 
@@ -15,8 +16,8 @@ struct no_{
 };
 
 struct lista_{
-    NO *noInicio;
-    NO *noFim;
+    NO *inicio;
+    NO *fim;
     int tamanho;
 };
 
@@ -24,6 +25,8 @@ struct aluno_{
     char nome[51];
     int aumento;
 };
+
+bool lista_inserir(LISTA *lista, ALUNO *aluno);
 
 //argv[0]    argv[1]    argv[2]
 //./main    nomearquivo    k
@@ -33,23 +36,117 @@ int main(int argc, char *argv[]){
     /*criando a lista*/
     LISTA *lista = (LISTA *)malloc(sizeof(lista));
     if(lista == NULL) return ERRO;
-    lista->noInicio = NULL;
-    lista->noFim = NULL;
-    lista->tamanho = k;
+    lista->inicio = NULL;
+    lista->fim = NULL;
+    lista->tamanho = 0;
 
     /*criando a inserindo os primeiros k alunos*/
-    ALUNO *primeiros_kAlunos[k];
+    //while(lista->tamanho < k){
     for(int i=0; i<k; i++){
         ALUNO *alunoAux = (ALUNO *)malloc(sizeof(ALUNO));
-        float n1, n2, n3;
+        float n1, n3;
         
-        scanf(" %50[^,],%f,%f,%f", alunoAux->nome, &n1, &n2, &n3);
+        scanf(" %50[^,],%f,%f,%f", alunoAux->nome, &n1, &n3, &n3);
         alunoAux->aumento = (int)((n3-n1)*10);
 
-        primeiros_kAlunos[i] = alunoAux;
-        printf("%s %d\n", primeiros_kAlunos[i]->nome, primeiros_kAlunos[i]->aumento);
+        lista_inserir(lista, alunoAux);
     }
+
+    printf("%s %d\n", lista->inicio->aluno->nome, lista->inicio->aluno->aumento);
+    printf("%s %d\n", lista->inicio->noParalelo->aluno->nome, lista->inicio->noParalelo->aluno->aumento);
+    printf("%s %d\n", lista->inicio->noParalelo->noParalelo->aluno->nome, lista->inicio->noParalelo->noParalelo->aluno->aumento);
+    printf("%s %d\n", lista->inicio->noParalelo->noParalelo->noParalelo->aluno->nome, lista->inicio->noParalelo->noParalelo->noParalelo->aluno->aumento);
+    printf("%s %d\n", lista->inicio->noSeguinte->aluno->nome, lista->inicio->noSeguinte->aluno->aumento);
+    printf("%s %d\n", lista->fim->aluno->nome, lista->fim->aluno->aumento);
+
     return 0;
+}
+
+bool lista_inserir(LISTA *lista, ALUNO *aluno){
+    if(lista == NULL) return false;
+
+    NO *noNovo = (NO *)malloc(sizeof(NO));
+    if(noNovo == NULL) return false;
+    noNovo->aluno = aluno;
+    noNovo->noSeguinte = NULL;
+    noNovo->noParalelo = NULL;
+
+    if(lista->tamanho == 0){
+        lista->inicio = noNovo;
+        lista->fim = noNovo;
+        lista->tamanho++;
+        
+        return true;
+    }
+
+    lista->tamanho++;
+
+    NO *pontAux = lista->inicio;
+    NO *pontAux_noAnterior = lista->inicio;
+
+    for(int i=0; i<lista->tamanho-1; i++){
+        if(pontAux->aluno->aumento > aluno->aumento){
+            if(i == 0){
+                noNovo->noSeguinte = lista->inicio;
+                lista->inicio = noNovo;
+
+                return true;
+            }
+            else{
+                noNovo->noSeguinte = pontAux;
+                pontAux_noAnterior->noSeguinte = noNovo;
+            }
+        }
+        else if(pontAux->aluno->aumento < aluno->aumento){
+            pontAux_noAnterior = pontAux;
+            pontAux = pontAux->noSeguinte;
+        }
+        else if(pontAux->aluno->aumento == aluno->aumento){ //pontAux->aluno->aumento == aluno->aumento
+            //lista->tamanho--;
+            /*inserindo paralelamente*/
+            if(strcmp(noNovo->aluno->nome, pontAux->aluno->nome) < 0){
+                if(lista->fim == pontAux) lista->fim = noNovo;
+                else if(lista->inicio == pontAux)lista->inicio = noNovo;
+
+                noNovo->noSeguinte = pontAux->noSeguinte;
+                noNovo->noParalelo = pontAux;
+                pontAux_noAnterior->noSeguinte = noNovo;
+
+                pontAux->noSeguinte = NULL;
+
+                return true;
+            }
+            else{
+                do{
+                    pontAux_noAnterior = pontAux;
+                    pontAux = pontAux->noParalelo;
+
+                    if(pontAux == NULL){
+                        pontAux_noAnterior->noParalelo = noNovo;
+                        noNovo->noParalelo = NULL;
+
+                        return true;
+                    }
+                    else{
+                        if(strcmp(noNovo->aluno->nome, pontAux->aluno->nome) < 0){
+                            noNovo->noParalelo = pontAux;
+                            pontAux_noAnterior->noParalelo = noNovo;
+
+                            return true;
+                        }
+                    }
+                }while(true);
+
+                return true;
+            }
+        }
+    }
+
+    lista->fim->noSeguinte = noNovo;
+    noNovo->noSeguinte = NULL;
+    lista->fim = noNovo;
+
+    return true;
 }
 
 /*
@@ -66,8 +163,11 @@ Os k alunos com os maiores aumentos em suas notas seriam premiados com uma estre
                 -> nome
                 -> aumento
 -> ler os primeiros k alunos e adicionar eles na lista
+    -> guardar o menor aumento
+-> ler o resto dos alunos, checar com o menor aumento
     -> se houver um aumento igual, inserimos ele paralelamente ao nó já inserido
     -> se houver um aumento maior, apagamos o menor e o inserimos
+
 
 Imprima esses 0 < 𝑘 < 10⁶ alunos
 -> k é um inteiro
