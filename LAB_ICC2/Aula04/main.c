@@ -3,6 +3,13 @@
 #include <stdbool.h>
 #include <string.h>
 
+/*TODO
+ordem decrescente OK
+void lista_imprimir(LISTA *lista); OK
+bool lista_remover(LISTA *lista);
+ler arquivo
+*/
+
 #define ERRO -1;
 
 typedef struct no_ NO;
@@ -27,6 +34,7 @@ struct aluno_{
 };
 
 bool lista_inserir(LISTA *lista, ALUNO *aluno);
+void lista_imprimir(LISTA *lista);
 
 //argv[0]    argv[1]    argv[2]
 //./main    nomearquivo    k
@@ -52,12 +60,7 @@ int main(int argc, char *argv[]){
         lista_inserir(lista, alunoAux);
     }
 
-    printf("%s %d\n", lista->inicio->aluno->nome, lista->inicio->aluno->aumento);
-    printf("%s %d\n", lista->inicio->noParalelo->aluno->nome, lista->inicio->noParalelo->aluno->aumento);
-    printf("%s %d\n", lista->inicio->noParalelo->noParalelo->aluno->nome, lista->inicio->noParalelo->noParalelo->aluno->aumento);
-    printf("%s %d\n", lista->inicio->noParalelo->noParalelo->noParalelo->aluno->nome, lista->inicio->noParalelo->noParalelo->noParalelo->aluno->aumento);
-    printf("%s %d\n", lista->inicio->noSeguinte->aluno->nome, lista->inicio->noSeguinte->aluno->aumento);
-    printf("%s %d\n", lista->fim->aluno->nome, lista->fim->aluno->aumento);
+    lista_imprimir(lista);
 
     return 0;
 }
@@ -85,19 +88,19 @@ bool lista_inserir(LISTA *lista, ALUNO *aluno){
     NO *pontAux_noAnterior = lista->inicio;
 
     for(int i=0; i<lista->tamanho-1; i++){
-        if(pontAux->aluno->aumento > aluno->aumento){
+        if(pontAux->aluno->aumento < aluno->aumento){
             if(i == 0){
                 noNovo->noSeguinte = lista->inicio;
                 lista->inicio = noNovo;
-
-                return true;
             }
             else{
                 noNovo->noSeguinte = pontAux;
                 pontAux_noAnterior->noSeguinte = noNovo;
             }
+
+            return true;
         }
-        else if(pontAux->aluno->aumento < aluno->aumento){
+        else if(pontAux->aluno->aumento > aluno->aumento){
             pontAux_noAnterior = pontAux;
             pontAux = pontAux->noSeguinte;
         }
@@ -147,6 +150,23 @@ bool lista_inserir(LISTA *lista, ALUNO *aluno){
     lista->fim = noNovo;
 
     return true;
+}
+
+void lista_imprimir(LISTA *lista){
+    if(lista == NULL) return;
+
+    NO* pontNo = lista->inicio;
+    NO* pontParalelos = pontNo->noParalelo;
+
+    while(pontNo != NULL){
+        pontParalelos = pontNo->noParalelo;
+        printf("%s %d\n", pontNo->aluno->nome, pontNo->aluno->aumento);
+        while(pontParalelos != NULL){
+            printf("%s %d\n", pontParalelos->aluno->nome, pontParalelos->aluno->aumento);
+            pontParalelos = pontParalelos->noParalelo;
+        }
+        pontNo = pontNo->noSeguinte;
+    }
 }
 
 /*
