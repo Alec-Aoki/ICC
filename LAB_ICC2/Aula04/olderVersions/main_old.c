@@ -26,7 +26,7 @@ struct aluno_{
     int aumento;
 };
 
-bool lista_inserir(LISTA *lista, ALUNO *aluno);
+bool lista_inserirSequencia(LISTA *lista, ALUNO *aluno);
 bool lista_inserirParalelo(LISTA *lista, ALUNO *aluno);
 void lista_imprimir(LISTA *lista);
 void lista_remover(LISTA *lista);
@@ -53,58 +53,49 @@ int main(void){
     char pular[24];
     fscanf(fp, "%s\n", pular);
 
-    /*inserindo o primeiro aluno do arquivo*/
-    ALUNO *alunoAux = (ALUNO *)malloc(sizeof(ALUNO));
-    float n1, n3;
-    fscanf(fp, "%[^,],%f,%f,%f\n", alunoAux->nome, &n1, &n3, &n3);
-    alunoAux->nome[strlen(alunoAux->nome)] = '\0';
-    alunoAux->aumento = (int)((n3-n1)*100);
-    NO *noNovo = (NO *)malloc(sizeof(NO));
-    noNovo->aluno = alunoAux;
-    noNovo->noSeguinte = NULL;
-    noNovo->noParalelo = NULL;
-    lista->inicio = noNovo;
-    lista->fim = noNovo;
-    lista->tamanho++;
-
-    lista_imprimir(lista); printf("Tamanho: %d\n\n", lista->tamanho);
-
     while(!feof(fp)){
         ALUNO *alunoAux = (ALUNO *)malloc(sizeof(ALUNO));
+        float n1, n3;
     
         fscanf(fp, "%[^,],%f,%f,%f\n", alunoAux->nome, &n1, &n3, &n3);
         alunoAux->nome[strlen(alunoAux->nome)] = '\0';
-        alunoAux->aumento = (int)((n3-n1)*100);
+        alunoAux->aumento = (int)((n3-n1)*10);
         
-        if((alunoAux->aumento >= lista->fim->aluno->aumento) || (lista->tamanho <= k)){
-            lista_inserir(lista, alunoAux);
-            if(lista->tamanho > k) lista_remover(lista);
+        if(lista->tamanho < k){
+            lista_inserirSequencia(lista, alunoAux);
         }
-
-        lista_imprimir(lista); printf("Tamanho: %d\n\n", lista->tamanho);
+        else if(alunoAux->aumento > lista->fim->aluno->aumento){
+            lista_remover(lista);
+            lista_inserirSequencia(lista, alunoAux);
+        }
+        else if(alunoAux->aumento == lista->fim->aluno->aumento){
+            lista_inserirParalelo(lista, alunoAux);
+        }
     }
 
     fclose(fp);
 
     lista_imprimir(lista);
-    
+
     return 0;
 }
 
-bool lista_inserir(LISTA *lista, ALUNO *aluno){
-    if(lista == NULL) return false;
-
-    if(lista->fim->aluno->aumento == aluno->aumento){
-        lista_inserirParalelo(lista, aluno);
-
-        return true;
-    }
+bool lista_inserirSequencia(LISTA *lista, ALUNO *aluno){
+    if(lista == NULL) exit(1);
 
     NO *noNovo = (NO *)malloc(sizeof(NO));
-    if(noNovo == NULL) return false;
+    if(noNovo == NULL) exit(1);
     noNovo->aluno = aluno;
     noNovo->noSeguinte = NULL;
     noNovo->noParalelo = NULL;
+
+    if(lista->tamanho == 0){
+        lista->inicio = noNovo;
+        lista->fim = noNovo;
+        lista->tamanho++;
+        
+        return true;
+    }
 
     lista->tamanho++;
 
@@ -112,13 +103,7 @@ bool lista_inserir(LISTA *lista, ALUNO *aluno){
     NO *pontAux_noAnterior = lista->inicio;
 
     for(int i=0; i<lista->tamanho-1; i++){
-        if(pontAux->aluno->aumento == aluno->aumento){
-            noNovo->noSeguinte = pontAux->noSeguinte;
-            pontAux->noSeguinte = noNovo;
-
-            return true;
-        }
-        else if(pontAux->aluno->aumento < aluno->aumento){
+        if(pontAux->aluno->aumento < aluno->aumento){
             if(pontAux == lista->inicio){
                 noNovo->noSeguinte = lista->inicio;
                 lista->inicio = noNovo;
@@ -135,6 +120,10 @@ bool lista_inserir(LISTA *lista, ALUNO *aluno){
             pontAux = pontAux->noSeguinte;
             if(pontAux == NULL) break;
         }
+        else if(pontAux->aluno->aumento == aluno->aumento){
+            lista->tamanho--;
+            return false;
+        }
     }
 
     lista->fim->noSeguinte = noNovo;
@@ -144,21 +133,22 @@ bool lista_inserir(LISTA *lista, ALUNO *aluno){
 }
 
 bool lista_inserirParalelo(LISTA *lista, ALUNO *aluno){
-    NO *pontAux = lista->fim;
-    NO *pontAux_noAnterior = lista->inicio;
-
-    if(pontAux_noAnterior != pontAux){
-        while(pontAux_noAnterior->noSeguinte != pontAux){
-            pontAux_noAnterior = pontAux_noAnterior->noSeguinte;
-        }
-    }
+    if(lista == NULL) exit(1);
 
     NO *noNovo = (NO *)malloc(sizeof(NO));
-    if(noNovo == NULL) return false;
+    if(noNovo == NULL) exit(1);
     noNovo->aluno = aluno;
     noNovo->noSeguinte = NULL;
     noNovo->noParalelo = NULL;
 
+    NO *pontAux = lista->fim;
+    NO *pontAux_noAnterior = lista->inicio;
+
+    while(pontAux_noAnterior->noSeguinte != pontAux){
+        pontAux_noAnterior = pontAux_noAnterior->noSeguinte;
+    }
+
+    /*inserindo paralelamente*/
     if(strcmp(noNovo->aluno->nome, pontAux->aluno->nome) < 0){
         if(lista->fim == pontAux) lista->fim = noNovo;
         else if(lista->inicio == pontAux) lista->inicio = noNovo;
@@ -191,45 +181,42 @@ bool lista_inserirParalelo(LISTA *lista, ALUNO *aluno){
                 }
             }
         }while(true);
-
-        return true;
     }
 }
 
 void lista_remover(LISTA *lista){
-    if(lista == NULL) return;
+    if(lista == NULL) exit(1);
 
     NO *noAux = lista->fim;
     NO *noAnterior = lista->inicio;
     NO *proximoNo;
 
-    if(noAnterior != noAux){
-        while(noAnterior->noSeguinte != noAux){
-            noAnterior = noAnterior->noSeguinte;
-        }
+
+    while(noAnterior->noSeguinte != noAux){
+        noAnterior = noAnterior->noSeguinte;
     }
 
     while(noAux != NULL){
+        //printf("%s\n", noAux->aluno->nome);
         proximoNo = noAux->noParalelo;
         free(noAux->aluno);
         free(noAux);
-        lista->tamanho--;
         noAux = proximoNo;
     }
 
     lista->fim = noAnterior;
     noAnterior->noSeguinte = NULL;
 
+    lista->tamanho--;
+
     return;
 }
 
 void lista_imprimir(LISTA *lista){
-    if(lista == NULL) return;
+    if(lista == NULL) exit(1);
 
     NO* pontNo = lista->inicio;
     NO* pontParalelos;
-
-    int i=0;
 
     while(pontNo != NULL){
         pontParalelos = pontNo->noParalelo;
@@ -240,4 +227,6 @@ void lista_imprimir(LISTA *lista){
         }
         pontNo = pontNo->noSeguinte;
     }
+
+    return;
 }
