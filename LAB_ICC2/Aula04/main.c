@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include "time.h"
 
 #define ERRO -1;
 
@@ -32,7 +33,17 @@ void lista_imprimir(LISTA *lista);
 void lista_remover(LISTA *lista);
 void lista_atualizarTamanho(LISTA *lista);
 
+typedef struct{
+    clock_t start;
+    clock_t end;
+}Timer;
+void start_timer(Timer *timer);
+double stop_timer(Timer *timer);
+
 int main(void){
+    Timer tempoTimer;
+    double tempoExec;
+
     char nome_arq[100];
 
     /*Criando a lista (encadeada e ordenada)*/
@@ -50,6 +61,8 @@ int main(void){
 
     char string[52];
     fscanf(fp, "%s\n", string);
+
+    start_timer(&tempoTimer);
 
     /*Lendo o primeiro aluno do arquivo*/
     ALUNO *alunoAux = (ALUNO *)malloc(sizeof(ALUNO));
@@ -97,10 +110,9 @@ int main(void){
 
     lista_imprimir(lista);
 
-    /*Esvazaziando a lista (desalocando a memória)*/
-    while(lista->tamanho != 0){
-        lista_remover;
-    }
+    tempoExec = stop_timer(&tempoTimer);
+    printf("\nTempo de execucao: %lfms\n", tempoExec);
+
     
     return 0;
 }
@@ -297,4 +309,15 @@ void lista_imprimir(LISTA *lista){
         }
         pontNo = pontNo->noSeguinte;
     }
+}
+
+
+/*Funções do timer*/
+void start_timer(Timer *timer){
+    timer->start = clock();
+    return;
+}
+double stop_timer(Timer *timer){
+    timer->end = clock();
+    return((double)(timer->end - timer->start)) / CLOCKS_PER_SEC;
 }
