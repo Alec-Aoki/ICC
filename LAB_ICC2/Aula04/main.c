@@ -96,6 +96,11 @@ int main(void){
     }
 
     lista_imprimir(lista);
+
+    /*Esvazaziando a lista (desalocando a memória)*/
+    while(lista->tamanho != 0){
+        lista_remover;
+    }
     
     return 0;
 }
@@ -120,6 +125,7 @@ bool lista_inserir(LISTA *lista, ALUNO *aluno){
         Caso o aluno seja o último, não consideramos seus nós paralelos como parte do tamanho da lista.
     Toda vez que inserimos um aluno e o tamanho da lista ultrapassar k, apagamos o último elemento dela
     (e seus nós paralelos, se houver).
+    A lista é ordenada em ordem decrescente.
 
     Como estamos utilizando uma lista encadeada, vamos usar um ponteiro que aponta para o nó da lista
     que está sendo comparado ao aluno que será inserido (pontAux) e outro ponteiro que aponta para o nó
