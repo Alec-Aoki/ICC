@@ -21,6 +21,7 @@ int main(void){
     PRATO vetPratos[quantPratos];
     for(int i=0; i<quantPratos; i++){
         scanf("%d %d %s", &vetPratos[i].prioridade, &vetPratos[i].tempoPreparo, vetPratos[i].nome);
+        vetPratos[i].nome[strlen(vetPratos[i].nome)] = '\0';
     }
 
     bubblesort(vetPratos, quantPratos);
@@ -31,6 +32,22 @@ int main(void){
 }
 
 void bubblesort(PRATO vetorPratos[], int tam){
+    for(int i=0; i<tam; i++){
+        int trocas = 0;
+
+        for(int j=1; j<tam-i; j++){
+            if((vetorPratos[j].prioridade < vetorPratos[j-1].prioridade) || ((vetorPratos[j].prioridade == vetorPratos[j-1].prioridade) && (vetorPratos[j].tempoPreparo < vetorPratos[j-1].tempoPreparo))){
+                PRATO aux = vetorPratos[j-1];
+                vetorPratos[j-1] = vetorPratos[j];
+                vetorPratos[j] = aux;
+
+                trocas++;
+            }
+        }
+        
+        if(trocas == 0) return;
+    }
+
     return;
 }
 
