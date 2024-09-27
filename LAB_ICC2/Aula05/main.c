@@ -10,6 +10,7 @@ struct prato_{
     int tempoPreparo;
 };
 
+bool comparar_pratos(PRATO prato1, PRATO prato2);
 void bubblesort(PRATO v[], int tam);
 void quicksort(PRATO v[], int inicio, int fim);
 void imprimir_pratos(PRATO v[], int tam);
@@ -30,6 +31,16 @@ int main(void){
     imprimir_pratos(vetPratos, quantPratos);
 
     return 0;
+}
+
+//Retorna true se prato1 > prato2 (prioridade ou tempo de preparo)
+bool comparar_pratos(PRATO prato1, PRATO prato2){
+    if(prato1.prioridade > prato2.prioridade) return true;
+    else if(prato1.prioridade == prato2.prioridade){
+        if(prato1.tempoPreparo > prato2.tempoPreparo) return true;
+    }
+    
+    return false;
 }
 
 void bubblesort(PRATO vetorPratos[], int tam){
