@@ -11,7 +11,7 @@ struct prato_{
 };
 
 void bubblesort(PRATO v[], int tam);
-void quicksort(PRATO v[], int tam);
+void quicksort(PRATO v[], int inicio, int fim);
 void imprimir_pratos(PRATO v[], int tam);
 
 int main(void){
@@ -24,7 +24,8 @@ int main(void){
         vetPratos[i].nome[strlen(vetPratos[i].nome)] = '\0';
     }
 
-    bubblesort(vetPratos, quantPratos);
+    //bubblesort(vetPratos, quantPratos);
+    //quicksort(vetPratos, 0, quantPratos-1);
 
     imprimir_pratos(vetPratos, quantPratos);
 
@@ -32,32 +33,18 @@ int main(void){
 }
 
 void bubblesort(PRATO vetorPratos[], int tam){
-    for(int i=0; i<tam; i++){
-        int trocas = 0;
-
-        for(int j=1; j<tam-i; j++){
-            if((vetorPratos[j].prioridade < vetorPratos[j-1].prioridade) || ((vetorPratos[j].prioridade == vetorPratos[j-1].prioridade) && (vetorPratos[j].tempoPreparo < vetorPratos[j-1].tempoPreparo))){
-                PRATO aux = vetorPratos[j-1];
-                vetorPratos[j-1] = vetorPratos[j];
-                vetorPratos[j] = aux;
-
-                trocas++;
-            }
-        }
-        
-        if(trocas == 0) return;
-    }
 
     return;
 }
 
-void quicksort(PRATO v[], int tam){
+void quicksort(PRATO v[], int inicio, int fim){
+    
     return;
 }
 
 void imprimir_pratos(PRATO v[], int tam){
     for(int i=0; i<tam; i++){
-        printf("%d %d %s\n", v[i].prioridade, v[i].tempoPreparo, v[i].nome);
+        printf("%s\n", v[i].nome);
     }
 
     return;
