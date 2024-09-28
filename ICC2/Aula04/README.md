@@ -80,37 +80,39 @@ $\displaystyle = \frac{ n^2 - n }{ 2 } = \frac{ n^2 }{ 2 } = O(n^2)$ <br /> <br 
 -> pior caso do aprimorado (inversamente ordenado): $O(n^2)$ <br />
 
 ```c
-    void bubblesort(int v[], int tam){
-        int aux;
+#include <stdio.h>
 
-        for(int i=0; i<tam; i++){
-            for(int j=0; j<tam-1; j++){ //como a cada passo o último elemento já está ordenado, podemos trocar tam-1 por (tam-1)-i
-                //int trocas = 0;
-                if(v[j] > v[j+1]){
-                    //trocas++;
-                    aux = v[j+1];
-                    v[j+1] = v[j];
-                    v[j] = aux;
-                }
-                /*
-                if(trocas == 0) return; // o vetor já está ordenado, não precisamos continuar iterando
-                */
+/*Bubblesort melhorado*/
+void bubblesort(int v[], int tam){
+    for(int i=0; i<tam; i++){
+        int trocas = 0;
+
+        for(int j=1; j<tam-i; j++){
+            if(v[j] < v[j-1]){
+                int aux = v[j-1];
+                v[j-1] = v[j];
+                v[j] = aux;
+
+                trocas++;
             }
         }
 
-        return;
+        if(trocas == 0) return;
     }
 
-    int main(void){
-        int v[] = {4,6,8,1,3,9,-1,7,0};
+    return;
+}
 
-        bubblesort(v, 9);
+int main(void){
+    int v[] = {4,6,3,1,3,9,-1,7,0};
 
-        for(int i=0; i<9; i++){
-            printf("%d ", v[i]);
-        }
-        printf("\n");
+    bubblesort(v, 9);
 
-        return 0;
+    for(int i=0; i<9; i++){
+        printf("%d ", v[i]);
     }
+    printf("\n");
+
+    return 0;
+}
 ```
