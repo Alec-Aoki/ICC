@@ -20,45 +20,80 @@
 
 ## Implementação
 ```c
-void intercala(int v[], int inicio, int meio, int fim){
-    int n1, n2;
-    n1 = meio-inicio+1;
-    n2 = fim-meio;
+#include <stdio.h>
 
-    int L[n1+1], R[n2+1];
+void intercala(int esquerda[], int tam_esq, int direita[], int tam_dir, int v[]);
+void mergesort(int v[], int tam);
 
-    for(int i=0; i<n1; i++){
-        L[i] = v[inicio+i];
+int main(void){
+    int v[] = {5, 2, 1, 4, 7, 3, 9};
+
+    mergesort(v, 7);
+
+    for(int i=0; i<7; i++){
+        printf("%d ", v[i]);
     }
-    L[n1] = sizeof(int); //para i não estourar no loop lá debaixo
+    printf("\n");
 
-    for(int i=0; i<n2; i++){
-        R[i] = v[meio+i];
-    }
-    R[n1] = sizeof(int); //para j não estourar no loop lá debaixo
+    return 0;
+}
 
-    int i=0, j=0;
-    for(int k=inicio; k<=fim; k++){
-        if(L[i] < R[j]){
-            v[k] = L[i];
-            i++;
+void intercala(int esquerda[], int tam_esq, int direita[], int tam_dir, int v[]){
+
+    int i=0, e=0, d=0;
+
+    /*escrevendo de volta no vetor v*/
+    while((e < tam_esq) && (d < tam_dir)){
+        if(esquerda[e] < direita[d]){
+            v[i] = esquerda[e];
+            e++;
         }
         else{
-            v[k] = R[j];
-            j++;
+            v[i] = direita[d];
+            d++;
         }
+        i++;
+    }
+
+    /*caso não sobre elementos em um vetor para compararmos*/
+    while(e < tam_esq){
+        v[i] = esquerda[e];
+        e++;
+        i++;
+    }
+    while(d < tam_dir){
+        v[i] = direita[d];
+        d++;
+        i++;
     }
 
     return;
 }
 
-void mergesort(int v[], int inicio, int fim){
-   if(inicio < fim){
-        int meio = (inicio + fim)/2;
-        mergesort(v, inicio, meio);
-        mergesort(v, meio+1, fim);
-        intercala(v, inicio, meio, fim);
+void mergesort(int v[], int tam){
+    if(tam == 1){
+        return;
     }
+
+    int meio = tam/2;
+    int esquerda[meio], direita[tam-meio];
+
+    /*dividindo o vetor v[] em dois (esquerda[] e direita[]), e passando os valores pra cada um*/
+    int e=0, d=0;
+    for(int i=0; i<tam; i++){
+        if(i < meio){
+            esquerda[e] = v[i];
+            e++;
+        }
+        else{
+            direita[d] = v[i];
+            d++;
+        }
+    }
+
+    mergesort(esquerda, meio); //note que v[] é o vetor esquerda[]!
+    mergesort(direita, tam-meio);
+    intercala(esquerda, meio, direita, tam-meio, v);
 
     return;
 }
