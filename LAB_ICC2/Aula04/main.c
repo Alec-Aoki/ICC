@@ -112,7 +112,6 @@ int main(void){
 
     tempoExec = stop_timer(&tempoTimer);
     printf("\nTempo de execucao: %lfms\n", tempoExec);
-
     
     return 0;
 }
