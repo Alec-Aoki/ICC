@@ -2,17 +2,16 @@
 
 /*Bubblesort melhorado*/
 void bubblesort(int v[], int tam){
-    int aux;
-
     for(int i=0; i<tam; i++){
         int trocas = 0;
 
-        for(int j=0; j<(tam-1)-i; j++){
-            if(v[j] > v[j+1]){
+        for(int j=1; j<tam-i; j++){
+            if(v[j] < v[j-1]){
+                int aux = v[j-1];
+                v[j-1] = v[j];
+                v[j] = aux;
+
                 trocas++;
-                aux = v[j];
-                v[j] = v[j+1];
-                v[j+1] = aux;
             }
         }
 
