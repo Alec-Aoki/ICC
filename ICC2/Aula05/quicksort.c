@@ -17,7 +17,35 @@ int main(void){
 }
 
 void quicksort(int v[], int inicio, int fim){
+    if(fim <= inicio) return; //caso base
 
+    int pivot = (inicio + fim)/2;
+    int aux = v[fim];
+    v[fim] = v[pivot];
+    v[pivot] = aux;
+    pivot = fim;
+
+    int i = inicio-1;
+    int j = inicio;
+
+    while(j < fim){
+        if(v[j] < v[fim]){
+            i++;
+            aux = v[i];
+            v[i] = v[j];
+            v[j] = aux;
+        }
+
+        j++;
+    }
+    
+    i++;
+    aux = v[pivot];
+    v[pivot] = v[i];
+    v[i] = aux;
+
+    quicksort(v, inicio, i-1);
+    quicksort(v, i+1, fim);
 
     return;
 }
