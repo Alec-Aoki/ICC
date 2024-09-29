@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 
 typedef struct prato_ PRATO;
 struct prato_{
@@ -10,10 +11,17 @@ struct prato_{
     int tempoPreparo;
 };
 
-bool comparar_pratos(PRATO prato1, PRATO prato2, bool quicksort);
+bool comparar_pratos(PRATO prato1, PRATO prato2);
 void bubblesort(PRATO *pontVetPratos, int tam);
 void quicksort(PRATO *pontVetPratos, int inicio, int fim);
 void imprimir_pratos(PRATO *pontVetPratos, int tam);
+
+typedef struct{
+    clock_t start;
+    clock_t end;
+}Timer;
+void start_timer(Timer *timer);
+double stop_timer(Timer *timer);
 
 int main(void){
     int quantPratos = 0;
@@ -38,11 +46,10 @@ int main(void){
 }
 
 //Retorna true se prato1 > prato2 (prioridade, tempo de preparo)
-bool comparar_pratos(PRATO prato1, PRATO prato2, bool quicksort){
+bool comparar_pratos(PRATO prato1, PRATO prato2){
     if(prato1.prioridade > prato2.prioridade) return true;
     else if(prato1.prioridade == prato2.prioridade){
-        if(quicksort) return true;
-        else if(prato1.tempoPreparo < prato2.tempoPreparo) return true;
+        if(prato1.tempoPreparo < prato2.tempoPreparo) return true;
     }
     
     return false;
@@ -53,7 +60,7 @@ void bubblesort(PRATO *pontVetPratos, int tam){
         int trocas = 0;
 
         for(int j=1; j<tam-i; j++){
-            if(comparar_pratos(pontVetPratos[j-1], pontVetPratos[j], false)){
+            if(comparar_pratos(pontVetPratos[j-1], pontVetPratos[j])){
                 PRATO aux = pontVetPratos[j-1];
                 pontVetPratos[j-1] = pontVetPratos[j];
                 pontVetPratos[j] = aux;
@@ -69,6 +76,36 @@ void bubblesort(PRATO *pontVetPratos, int tam){
 }
 
 void quicksort(PRATO *pontVetPratos, int inicio, int fim){
+    if(fim <= inicio) return; //caso base
+
+    int pivot = (inicio + fim)/2;
+    PRATO aux = pontVetPratos[fim];
+    pontVetPratos[fim] = pontVetPratos[pivot];
+    pontVetPratos[pivot] = aux;
+    pivot = fim;
+
+    int i = inicio-1;
+    int j = inicio;
+
+    while(j < fim){
+        if(comparar_pratos(pontVetPratos[fim], pontVetPratos[j])){
+            i++;
+            aux = pontVetPratos[i];
+            pontVetPratos[i] = pontVetPratos[j];
+            pontVetPratos[j] = aux;
+        }
+
+        j++;
+    }
+    
+    i++;
+    aux = pontVetPratos[pivot];
+    pontVetPratos[pivot] = pontVetPratos[i];
+    pontVetPratos[i] = aux;
+
+    quicksort(pontVetPratos, inicio, i-1);
+    quicksort(pontVetPratos, i+1, fim);
+
     return;
 }
 
@@ -79,6 +116,16 @@ void imprimir_pratos(PRATO *pontVetPratos, int tam){
     }
 
     return;
+}
+
+/*Funções do timer*/
+void start_timer(Timer *timer){
+    timer->start = clock();
+    return;
+}
+double stop_timer(Timer *timer){
+    timer->end = clock();
+    return((double)(timer->end - timer->start)) / CLOCKS_PER_SEC;
 }
 
 /*
