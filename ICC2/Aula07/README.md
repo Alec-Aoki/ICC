@@ -98,7 +98,7 @@ Rearranjar a heap
 Repetir o processo
 ```
 - procedimentos:
-    - **construir_heap** ( $ O(n) $ ):
+    - **construir_heap** ( $$ O(n) $$ ):
     - percorre de forma ascendente os primeiros $\displaystyle \frac{n}{2} - 1$ nós (ou seja, os nós que não são folhas) e executa o *rearranjar_heap*
     - ou seja, começando pelos últimos níveis (que não são folhas) e subindo, vamos tornando as sub-árvores da heap em heap máximas, e quando chegamos na raíz, transformamos a heap toda em máxima
     ```c
@@ -111,7 +111,7 @@ Repetir o processo
         return;
     }
     ```
-    - **rearranjar_heap** ( $ O(\log(n)) $ ):
+    - **rearranjar_heap** ( $$ O(\log(n)) $$ ):
     ```c
     void rearranjar_heap(int v[], int i, int tam_heap){
         int esq, dir, maior, aux;
