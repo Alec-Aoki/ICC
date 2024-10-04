@@ -78,7 +78,11 @@ void mergesort(PRATO *v, int tam){
     }
 
     int meio = tam/2;
-    PRATO esquerda[meio], direita[tam-meio];
+    PRATO *esquerda, *direita;
+    esquerda = (PRATO *)calloc(meio, sizeof(PRATO));
+    direita = (PRATO *)calloc((tam-meio), sizeof(PRATO));
+    
+    //PRATO esquerda[meio], direita[tam-meio];
 
     /*dividindo o vetor v[] em dois (esquerda[] e direita[]), e passando os valores pra cada um*/
     int e=0, d=0;
@@ -97,6 +101,9 @@ void mergesort(PRATO *v, int tam){
     mergesort(direita, tam-meio);
     intercala(esquerda, meio, direita, tam-meio, v);
 
+    free(esquerda);
+    free(direita);
+
     return;
 }
 
@@ -112,7 +119,7 @@ bool comparar_pratos(PRATO prato1, PRATO prato2){
 
 void imprimir_pratos(PRATO *pontVetPratos, int tam){
     for(int i=0; i<tam; i++){
-        //printf("%d %d %s\n", v[i].prioridade, v[i].tempoPreparo, v[i].nome);
+        //printf("%d %d %s\n", pontVetPratos[i].prioridade, pontVetPratos[i].tempoPreparo, pontVetPratos[i].nome);
         printf("%s\n", pontVetPratos[i].nome);
     }
 
