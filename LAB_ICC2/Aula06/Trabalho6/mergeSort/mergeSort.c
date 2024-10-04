@@ -1,21 +1,5 @@
 #include <stdio.h>
 
-void intercala(int esquerda[], int tam_esq, int direita[], int tam_dir, int v[]);
-void mergesort(int v[], int tam);
-
-int main(void){
-    int v[] = {5, 2, 1, 4, 7, 3, 9};
-
-    mergesort(v, 7);
-
-    for(int i=0; i<7; i++){
-        printf("%d ", v[i]);
-    }
-    printf("\n");
-
-    return 0;
-}
-
 void intercala(int esquerda[], int tam_esq, int direita[], int tam_dir, int v[]){
 
     int i=0, e=0, d=0;
