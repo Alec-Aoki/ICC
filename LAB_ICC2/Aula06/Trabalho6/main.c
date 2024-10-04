@@ -18,7 +18,7 @@ int main(void){
     int quantPratos = 0;
     scanf("%d", &quantPratos);
 
-    PRATO *pontVetPratos = (PRATO *)malloc(quantPratos*sizeof(PRATO));
+    PRATO *pontVetPratos = (PRATO *)calloc(quantPratos, sizeof(PRATO));
     if(pontVetPratos == NULL) exit(1);
 
     for(int i=0; i<quantPratos; i++){
