@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 
 typedef struct prato_ PRATO;
 struct prato_{
@@ -18,6 +19,14 @@ void imprimir_pratos(PRATO *pontVetPratos, int tam);
 void intercala(PRATO esquerda[], int tam_esq, PRATO direita[], int tam_dir, PRATO *v);
 void mergesort(PRATO *v, int tam);
 
+/*funções do timer*/
+typedef struct{
+    clock_t start;
+    clock_t end;
+}Timer;
+void start_timer(Timer *timer);
+double stop_timer(Timer *timer);
+
 int main(void){
 
     int quantPratos = 0;
@@ -26,6 +35,7 @@ int main(void){
     PRATO *pontVetPratos = (PRATO *)calloc(quantPratos, sizeof(PRATO));
     if(pontVetPratos == NULL) exit(1);
 
+    /*lendo a entrada*/
     for(int i=0; i<quantPratos; i++){
         scanf("%d %d %s", &pontVetPratos[i].prioridade, &pontVetPratos[i].tempoPreparo, pontVetPratos[i].nome);
         pontVetPratos[i].nome[strlen(pontVetPratos[i].nome)] = '\0';
@@ -41,11 +51,13 @@ int main(void){
 }
 
 /*mergesort*/
+/*função para intercalar dois vetores ordenadamente (ordem crescente de prioridade)*/
 void intercala(PRATO esquerda[], int tam_esq, PRATO direita[], int tam_dir, PRATO *v){
     int i=0, e=0, d=0;
 
     /*escrevendo de volta no vetor v*/
     while((e < tam_esq) && (d < tam_dir)){
+        /*vendo qual prato tem menor prioridade*/
         if(comparar_pratos(esquerda[e], direita[d])){
             v[i] = esquerda[e];
             e++;
@@ -57,7 +69,7 @@ void intercala(PRATO esquerda[], int tam_esq, PRATO direita[], int tam_dir, PRAT
         i++;
     }
 
-    /*caso não sobre elementos em um vetor para compararmos*/
+    /*caso não sobre elementos em um vetor para compararmos, escrevemos o restante no vetor v*/
     while(e < tam_esq){
         v[i] = esquerda[e];
         e++;
@@ -82,9 +94,7 @@ void mergesort(PRATO *v, int tam){
     esquerda = (PRATO *)calloc(meio, sizeof(PRATO));
     direita = (PRATO *)calloc((tam-meio), sizeof(PRATO));
     
-    //PRATO esquerda[meio], direita[tam-meio];
-
-    /*dividindo o vetor v[] em dois (esquerda[] e direita[]), e passando os valores pra cada um*/
+    /*dividindo o vetor v[] em dois (esquerda e direita), e copiando os valores pra cada um*/
     int e=0, d=0;
     for(int i=0; i<tam; i++){
         if(i < meio){
@@ -97,8 +107,10 @@ void mergesort(PRATO *v, int tam){
         }
     }
 
+    /*chamando o mersort recursivamente, até tam == 1*/
     mergesort(esquerda, meio); //note que v[] é o vetor esquerda[]!
     mergesort(direita, tam-meio);
+    /*intercalando os vetores sucessivamente*/
     intercala(esquerda, meio, direita, tam-meio, v);
 
     free(esquerda);
@@ -124,4 +136,14 @@ void imprimir_pratos(PRATO *pontVetPratos, int tam){
     }
 
     return;
+}
+
+void start_timer(Timer *timer){
+    timer->start = clock();
+    return;
+}
+
+double stop_timer(Timer *timer){
+    timer->end = clock();
+    return((double)(timer->end - timer->start)) / CLOCKS_PER_SEC;
 }
