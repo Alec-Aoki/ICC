@@ -26,6 +26,7 @@ int main(void){
 void ler_cartas(CARTA baralho[], int quantCartas, int quantValores){
     for(int i=0; i<quantCartas; i++){
         baralho[i].valores = (char *)malloc((quantValores+1)*sizeof(char));
+        if(baralho[i].valores == NULL) exit(1);
         scanf(" %s %s", baralho[i].naipe, baralho[i].valores);
     }
 
