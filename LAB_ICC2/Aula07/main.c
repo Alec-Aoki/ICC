@@ -10,6 +10,7 @@ typedef struct carta_{
 
 void ler_cartas(CARTA baralho[], int quantCartas, int quantValores);
 void imprimir_baralho(CARTA baralho[], int quantCartas);
+bool comparar_cartas(CARTA carta1, CARTA carta2);
 
 int main(void){
     int quantCartas, quantValores;
@@ -39,4 +40,8 @@ void imprimir_baralho(CARTA baralho[], int quantCartas){
     }
 
     return;
+}
+
+bool comparar_cartas(CARTA carta1, CARTA carta2){
+    
 }
