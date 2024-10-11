@@ -10,9 +10,10 @@ typedef struct carta_{
 
 void ler_cartas(CARTA baralho[], int quantCartas, int quantValores);
 void imprimir_baralho(CARTA baralho[], int quantCartas);
-bool comparar_cartas(CARTA carta1, CARTA carta2);
+bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[]);
 
 int main(void){
+    /*vetor auxiliar para compararmos duas cartas*/
     CARTA naipes[4];
     naipes[0].valores = NULL;
     naipes[1].valores = NULL;
@@ -30,8 +31,6 @@ int main(void){
     ler_cartas(baralho, quantCartas, quantValores);
 
     imprimir_baralho(baralho, quantCartas);
-
-    printf("%d\n", strncmp(baralho[0].naipe, naipes[0].naipe, 3));
     
     return 0;
 }
@@ -54,6 +53,6 @@ void imprimir_baralho(CARTA baralho[], int quantCartas){
     return;
 }
 
-bool comparar_cartas(CARTA carta1, CARTA carta2){
+bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[]){
     return false;
 }
