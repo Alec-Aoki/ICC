@@ -39,9 +39,9 @@ int main(void){
 
     imprimir_baralho(baralho, quantCartas);
 
-    if(comparar_cartas(quantValores, baralho[1], baralho[2], naipes, valores)) printf("Carta 1 < Carta 2\n");
+    if(comparar_cartas(quantValores, baralho[2], baralho[0], naipes, valores)) printf("Carta 1 < Carta 2\n");
     else{
-        printf("Carta 2 < Carta 1\n");
+        printf("Carta 1 > Carta 2\n");
     }
     
     return 0;
@@ -70,9 +70,12 @@ bool comparar_cartas(int quantValores, CARTA carta1, CARTA carta2, CARTA naipes[
     while(strncmp(carta1.naipe, naipes[naipeCarta1].naipe, 3) != 0) naipeCarta1++;
     while(strncmp(carta2.naipe, naipes[naipeCarta2].naipe, 3) != 0) naipeCarta2++;
 
+    printf("%d %d\n", naipeCarta1, naipeCarta2);
+
     if(naipeCarta1 < naipeCarta2) return true;
+    else if(naipeCarta2 < naipeCarta1) return false;
     else{
-        /*checar os valores das cartas*/
+        /*naipes iguais, checar os valores das cartas*/
         int valorCarta1=0, valorCarta2=0;
         for(int i=0; i<quantValores; i++){
             while(carta1.valores[i] != valores[valorCarta1]) valorCarta1++;
