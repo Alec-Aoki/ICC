@@ -10,7 +10,7 @@ typedef struct carta_{
 
 void ler_cartas(CARTA baralho[], int quantCartas, int quantValores);
 void imprimir_baralho(CARTA baralho[], int quantCartas);
-bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[], char valores[]); //true: carta1 < carta2
+bool comparar_cartas(int quantValores, CARTA carta1, CARTA carta2, CARTA naipes[], char valores[]); //true: carta1 < carta2
 
 int main(void){
     /*vetores auxiliares para compararmos duas cartas*/
@@ -60,7 +60,7 @@ void imprimir_baralho(CARTA baralho[], int quantCartas){
     return;
 }
 
-bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[], char valores[]){
+bool comparar_cartas(int quantValores, CARTA carta1, CARTA carta2, CARTA naipes[], char valores[]){
     int naipeCarta1=0, naipeCarta2=0;
     while(strncmp(carta1.naipe, naipes[naipeCarta1].naipe, 3) != 0) naipeCarta1++;
     while(strncmp(carta2.naipe, naipes[naipeCarta2].naipe, 3) != 0) naipeCarta2++;
@@ -68,5 +68,6 @@ bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[], char valores[])
     if(naipeCarta1 < naipeCarta2) return true;
     else{
         /*checar os valores das cartas*/
+        int valorCarta1=0, valorCarta2=0;
     }
 }
