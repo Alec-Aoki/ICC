@@ -10,19 +10,26 @@ typedef struct carta_{
 
 void ler_cartas(CARTA baralho[], int quantCartas, int quantValores);
 void imprimir_baralho(CARTA baralho[], int quantCartas);
-bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[]);
+bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[]); //true: carta1 < carta2
 
 int main(void){
-    /*vetor auxiliar para compararmos duas cartas*/
+    /*vetores auxiliares para compararmos duas cartas*/
     CARTA naipes[4];
-    naipes[0].valores = NULL;
-    naipes[1].valores = NULL;
-    naipes[2].valores = NULL;
-    naipes[3].valores = NULL;
     strcpy(naipes[0].naipe, "♦");
     strcpy(naipes[1].naipe, "♠");
     strcpy(naipes[2].naipe, "♥");
     strcpy(naipes[3].naipe, "♣");
+    char valores[10];
+    valores[0] = '4';
+    valores[1] = '5';
+    valores[2] = '6';
+    valores[3] = '7';
+    valores[4] = 'Q';
+    valores[5] = 'J';
+    valores[6] = 'K';
+    valores[7] = 'A';
+    valores[8] = '2';
+    valores[9] = '3';
 
     int quantCartas, quantValores;
     scanf("%d %d", &quantCartas, &quantValores);
@@ -54,5 +61,12 @@ void imprimir_baralho(CARTA baralho[], int quantCartas){
 }
 
 bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[]){
-    return false;
+    int naipeCarta1=0, naipeCarta2=0;
+    while(strncmp(carta1.naipe, naipes[naipeCarta1].naipe, 3) != 0) naipeCarta1++;
+    while(strncmp(carta2.naipe, naipes[naipeCarta2].naipe, 3) != 0) naipeCarta2++;
+
+    if(naipeCarta1 < naipeCarta2) return true;
+    else{
+        /*checar os valores das cartas*/
+    }
 }
