@@ -7,8 +7,6 @@
 
 #define tam 8
 
-/*not working*/
-
 int getDigito(int num, int posicaoDigito){
     for(int i=0; i<posicaoDigito; i++){
         num = (int)(num/10);
