@@ -3,6 +3,9 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include "item.h"
+#include "lista.h"
+
 typedef struct carta_{
     char naipe[3];
     char *valores;
@@ -107,3 +110,11 @@ void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, CARTA na
     return;
 }
 
+void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[], char valores[]){
+    LISTA *vetListas[14];
+    for(int i=0; i<14; i++){
+        vetListas[i] = lista_criar(false);
+    }
+
+    return;
+}
