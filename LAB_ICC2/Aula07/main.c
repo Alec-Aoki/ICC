@@ -38,15 +38,9 @@ int main(void){
     CARTA baralho[quantCartas];
     ler_cartas(baralho, quantCartas, quantValores);
 
-    printf("Cartas lidas ok\n");
-
     stoogeSort(baralho, 0, quantCartas-1, quantValores, naipes, valores);
 
-    printf("Stoogesort ok\n");
-
     imprimir_baralho(baralho, quantCartas);
-
-    printf("Baralho imprimido\n");
     
     return 0;
 }
@@ -91,23 +85,24 @@ bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[], char valores[],
 }
 
 void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, CARTA naipes[], char valores[]){
+    if(fim >= inicio){
+        return;
+    }
+
     if(comparar_cartas(baralho[fim], baralho[inicio], naipes, valores, quantValores)){
         CARTA cartaAux = baralho[inicio];
         baralho[inicio] = baralho[fim];
         baralho[fim] = cartaAux;
     }
-
-    if((fim - inicio) < 3){
-        return;
-    }
     //else:
-    int tam = fim-inicio;
-    int doisTercos = (int)((2*tam)/3);
-    if((2*tam)%3 != 0) doisTercos++;
-    
-    stoogeSort(baralho, , , quantValores, naipes, valores);
-    stoogeSort(baralho, , , quantValores, naipes, valores);
-    stoogeSort(baralho, , , quantValores, naipes, valores);
+    int t = fim-inicio+1;
+    if(t > 2){
+        t = (int)(t/3);
+
+        stoogeSort(baralho, inicio, fim-t, quantValores, naipes, valores);
+        stoogeSort(baralho, inicio+t, fim, quantValores, naipes, valores);
+        stoogeSort(baralho, inicio, fim-t, quantValores, naipes, valores);
+    }
 
     return;
 }
