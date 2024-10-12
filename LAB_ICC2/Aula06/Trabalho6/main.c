@@ -41,9 +41,17 @@ int main(void){
         pontVetPratos[i].nome[strlen(pontVetPratos[i].nome)] = '\0';
     }
 
+    Timer tempoTimer;
+    double tempoExec;
+
+    start_timer(&tempoTimer);
+
     mergesort(pontVetPratos, quantPratos);
 
-    imprimir_pratos(pontVetPratos, quantPratos);
+    tempoExec = stop_timer(&tempoTimer);
+    printf("\nTempo de execucao: %lfms\n", tempoExec);
+
+    //imprimir_pratos(pontVetPratos, quantPratos);
 
     free(pontVetPratos);
 
