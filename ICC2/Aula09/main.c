@@ -3,15 +3,15 @@
 #include <stdbool.h>
 
 #include "item.h"
-#include "filaDinamica.h"
+#include "lista.h"
 
 #define tam 8
 
-/*not working :)*/
+/*not working*/
 
 int getDigito(int num, int posicaoDigito){
     for(int i=0; i<posicaoDigito; i++){
-        num = num/10;
+        num = (int)(num/10);
     }
 
     return num%10;
@@ -26,46 +26,39 @@ int main(void){
     for(int i=0; i<tam; i++){
         if(v[i] > maior) maior = v[i];
     }
-    printf("Maior numero encontrado\n");
 
     if(maior > 9) quantDigitosMax = 2;
     else if(maior > 99) quantDigitosMax = 3;
     else if(maior > 999) quantDigitosMax = 4;
     else if(maior > 9999) quantDigitosMax = 5;
 
-    printf("Quant. max. de digitos definida\n");
-
-    FILA *vetFilas[10];
+    LISTA *vetFilas[10];
     for(int i=0; i<10; i++){
-        vetFilas[i] = fila_criar();
+        vetFilas[i] = lista_criar(false);
     }
-    printf("Filas criadas\n");
 
     for(int i=0; i<quantDigitosMax; i++){
         for(int j=0; j<tam; j++){
             int digito = getDigito(v[j], i);
             ITEM *item = item_criar(NULL, v[j]);
-            fila_inserir(vetFilas[digito], item);
+            lista_inserir(vetFilas[digito], item);
         }
-        printf("Todos os itens inseridos\n");
-
+        
         int k=0;
-        for(int m=0; m<tam; m++){
-            while(!fila_vazia(vetFilas[m])){
-                printf("Fila nao vazia\n");
-                ITEM *itemTemp = fila_remover(vetFilas[m]);
-                printf("Item removido da fila\n");
-                v[k++] = item_getChave(itemTemp);
-                printf("Chave inserida no vetor\n");
+        for(int m=0; m<10; m++){
+            while(!lista_vazia(vetFilas[m])){
+                ITEM *itemTemp = lista_remover_inicio(vetFilas[m]);
+                v[k] = item_getChave(itemTemp);
+                k++;
             }
         }
-        printf("Todos os itens removidos\n");
-    }
 
-    for(int i=0; i<tam; i++){
+    }
+    
+    for(int i=0; i<tam-1; i++){
         printf("%d ", v[i]);
     }
-    printf("\n");
+    printf("%d\n", v[tam-1]);
 
     return 0;
 }

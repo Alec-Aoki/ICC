@@ -13,4 +13,5 @@
     int fila_tamanho(FILA *fila);
     bool fila_cheia(FILA *fila);
     bool fila_vazia(FILA *fila);
+    void fila_imprimir(FILA *fila);
 #endif

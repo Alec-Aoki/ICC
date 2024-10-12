@@ -97,3 +97,14 @@ bool fila_vazia(FILA *fila){
 
     return false;
 }
+
+void fila_imprimir(FILA *fila){
+    NO *noBusca = fila->noInicio;
+    for(int i=0; i<fila->total-1; i++){
+        printf("%d ", item_getChave(noBusca->item));
+        noBusca = noBusca->noSeguinte;
+    }
+    if(fila->total != 0) printf("%d\n", item_getChave(fila->noFim->item));
+
+    return;
+}
