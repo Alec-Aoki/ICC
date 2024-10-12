@@ -19,20 +19,22 @@ struct fila_{
 
 FILA *fila_criar(void){
     FILA *fila = (FILA *)malloc(sizeof(FILA));
-    if(fila != NULL){
-        fila->total = 0;
-        fila->noInicio = NULL;
-        fila->noFim = NULL;
-    }
+    if(fila == NULL) exit(1);
+    
+    fila->total = 0;
+    fila->noInicio = NULL;
+    fila->noFim = NULL;
 
     return fila;
 }
 
 bool fila_inserir(FILA *fila, ITEM *item){
-    if(fila == NULL || item == NULL) return false;
+    if(fila == NULL) exit(1);
     if(fila_cheia(fila)) return false;
 
     NO *noNovo = (NO *)malloc(sizeof(NO));
+    if(noNovo == NULL) exit(1);
+
     noNovo->item = item;
     if(fila->total == 0) fila->noInicio = noNovo;
     noNovo->noSeguinte = fila->noFim;
@@ -44,7 +46,8 @@ bool fila_inserir(FILA *fila, ITEM *item){
 }
 
 ITEM *fila_remover(FILA *fila){
-    if(fila == NULL || fila_vazia(fila)) return NULL;
+    if(fila == NULL) exit(1);
+    if(fila_vazia(fila)) return NULL;
 
     ITEM *itemAux = (fila->noInicio)->item;
     (fila->noInicio)->item = NULL;
@@ -62,19 +65,20 @@ ITEM *fila_remover(FILA *fila){
 }
 
 ITEM *fila_frente(FILA *fila){
-    if(fila == NULL || fila_vazia(fila)) return NULL;
+    if(fila == NULL) exit(1);
+    if(fila_vazia(fila)) return NULL;
 
     return ((fila->noInicio)->item);
 }
 
 int fila_tamanho(FILA *fila){
-    if(fila == NULL) return -1;
+    if(fila == NULL) exit(1);
 
     return fila->total;
 }
 
 bool fila_cheia(FILA *fila){
-    if(fila == NULL) return false;
+    if(fila == NULL) exit(1);
 
     NO* noTemp = (NO *)malloc(sizeof(NO));
     if(noTemp != NULL){
@@ -88,7 +92,8 @@ bool fila_cheia(FILA *fila){
 }
 
 bool fila_vazia(FILA *fila){
-    if(fila == NULL || fila->total == 0) return true;
+    if(fila == NULL) exit(1);
+    if(fila->total == 0) return true;
 
     return false;
 }
