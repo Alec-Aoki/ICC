@@ -106,3 +106,4 @@ void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, CARTA na
 
     return;
 }
+
