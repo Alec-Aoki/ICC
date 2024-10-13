@@ -42,12 +42,10 @@ int main(void){
     CARTA baralho[quantCartas];
     ler_cartas(baralho, quantCartas, quantValores);
 
+    imprimir_baralho(baralho, quantCartas);
+
     //stoogeSort(baralho, 0, quantCartas-1, quantValores, naipes, valores);
     radixSort(baralho, quantCartas, quantValores, naipes, valores);
-
-    printf("\n");
-
-    imprimir_baralho(baralho, quantCartas);
     
     return 0;
 }
@@ -63,9 +61,10 @@ void ler_cartas(CARTA baralho[], int quantCartas, int quantValores){
 }
 
 void imprimir_baralho(CARTA baralho[], int quantCartas){
-    for(int i=0; i<quantCartas; i++){
-        printf("%s %s\n", baralho[i].naipe, baralho[i].valores);
+    for(int i=0; i<quantCartas-1; i++){
+        printf("%s%s;", baralho[i].naipe, baralho[i].valores);
     }
+    printf("%s%s;\n", baralho[quantCartas-1].naipe, baralho[quantCartas-1].valores);
 
     return;
 }
