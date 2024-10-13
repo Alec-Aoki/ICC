@@ -124,14 +124,21 @@ void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[
     }
 
     /*analisando os valores das cartas (naipe não incluso)*/
-    for(int i=quantValores-1; i>=0; i--){
+    for(int i=quantValores-1; i>=-1; i--){
         for(int j=0; j<quantCartas; j++){
             /*encontrando o valor do dígito sendo analisado
             estamos analisando o dígito i da carta j do baralho
             esse dígito tem o valor valorCarta, que corresponde a qual lista ele deve ser inserido
             */
             int valorCarta = 0;
-            while(baralho[j].valores[i] != valores[valorCarta]) valorCarta++;
+            if(i>=0){
+                while(baralho[j].valores[i] != valores[valorCarta]) valorCarta++;
+            }
+            else{
+                while(strncmp(baralho[j].naipe, naipes[valorCarta].naipe, 3) != 0) valorCarta++;
+
+                valorCarta+=10;
+            }
 
             /*adicionar a carta na lista correspondente*/
             ITEM *itemCarta = item_criar(&(baralho[j]), j);
@@ -141,15 +148,11 @@ void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[
         int k=0;
         for(int l=0; l<14; l++){
             while(!lista_vazia(vetListas[l])){
-                //printf("Lista %d nao vazia\n", l);
                 ITEM *itemCarta = lista_remover_inicio(vetListas[l]);
-                //printf("Item removido\n");
                 CARTA *pontCarta = (CARTA *)item_getDado(itemCarta);
                 baralhoOrdenado[k] = *pontCarta;
-                //printf("Carta inserida no baralho: %s %s\n", pontCarta->naipe, pontCarta->valores);
                 
                 item_apagar(&itemCarta);
-                //printf("Item apagado\n");
                 itemCarta = NULL;
                 pontCarta = NULL;
 
@@ -158,17 +161,10 @@ void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[
             }
         }
 
-        break;
+        for(int m=0; m<quantCartas; m++){
+            baralho[m] = baralhoOrdenado[m];
+        }
     }
-
-    for(int i=0; i<quantCartas; i++){
-        baralho[i] = baralhoOrdenado[i];
-    }
-
-    /*for(int i=0; i<14; i++){
-        printf("Lista[%d]: ", i);
-        lista_imprimir(vetListas[i], false);
-    }*/
 
     return;
 }
