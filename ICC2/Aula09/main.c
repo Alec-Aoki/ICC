@@ -48,9 +48,13 @@ int main(void){
                 ITEM *itemTemp = lista_remover_inicio(vetFilas[m]);
                 v[k] = item_getChave(itemTemp);
                 k++;
+                item_apagar(&itemTemp);
             }
         }
+    }
 
+    for(int i=0; i<10; i++){
+        lista_apagar(&(vetFilas[i]));
     }
     
     for(int i=0; i<tam-1; i++){
