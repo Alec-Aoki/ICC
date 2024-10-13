@@ -18,7 +18,7 @@ void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, CARTA na
 void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[], char valores[]);
 
 int main(void){
-    /*vetores auxiliares para compararmos duas cartas*/
+    /*vetores auxiliares para acharmos os valores de uma carta*/
     CARTA naipes[4];
     strcpy(naipes[0].naipe, "♦");
     strcpy(naipes[1].naipe, "♠");
@@ -42,9 +42,10 @@ int main(void){
     CARTA baralho[quantCartas];
     ler_cartas(baralho, quantCartas, quantValores);
 
+    //stoogeSort(baralho, 0, quantCartas-1, quantValores, naipes, valores);
+
     imprimir_baralho(baralho, quantCartas);
 
-    //stoogeSort(baralho, 0, quantCartas-1, quantValores, naipes, valores);
     radixSort(baralho, quantCartas, quantValores, naipes, valores);
     
     return 0;
@@ -155,7 +156,6 @@ void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[
                 itemCarta = NULL;
                 pontCarta = NULL;
 
-
                 k++;
             }
         }
@@ -173,6 +173,10 @@ void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[
 
         imprimir_baralho(baralho, quantCartas);
 
+    }
+
+    for(int i=0; i<14; i++){
+        lista_apagar(&(vetListas[i]));
     }
 
     return;
