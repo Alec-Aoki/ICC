@@ -8,4 +8,4 @@ run:
 	./main
 
 zip:
-	zip -R entrega.zip . 'main.c' 'Makefile'
+	zip -R entrega.zip . '*.c' '*.h' 'Makefile'

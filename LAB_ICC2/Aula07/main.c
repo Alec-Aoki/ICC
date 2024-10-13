@@ -62,9 +62,9 @@ void ler_cartas(CARTA baralho[], int quantCartas, int quantValores){
 
 void imprimir_baralho(CARTA baralho[], int quantCartas){
     for(int i=0; i<quantCartas-1; i++){
-        printf("%s%s;", baralho[i].naipe, baralho[i].valores);
+        printf("%s %s;", baralho[i].naipe, baralho[i].valores);
     }
-    printf("%s%s;\n", baralho[quantCartas-1].naipe, baralho[quantCartas-1].valores);
+    printf("%s %s;\n", baralho[quantCartas-1].naipe, baralho[quantCartas-1].valores);
 
     return;
 }
@@ -163,6 +163,16 @@ void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[
         for(int m=0; m<quantCartas; m++){
             baralho[m] = baralhoOrdenado[m];
         }
+
+        if(i>=0){
+            printf("Após ordenar o %d° dígito dos valores:\n", i+1);
+        }
+        else{
+            printf("Após ordenar por naipe:\n");
+        }
+
+        imprimir_baralho(baralho, quantCartas);
+
     }
 
     return;
