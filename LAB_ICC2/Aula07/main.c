@@ -2,9 +2,18 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
 
 #include "item.h"
 #include "lista.h"
+
+/*funções do timer*/
+typedef struct{
+    clock_t start;
+    clock_t end;
+}Timer;
+void start_timer(Timer *timer);
+double stop_timer(Timer *timer);
 
 typedef struct carta_{
     char naipe[3];
@@ -42,11 +51,18 @@ int main(void){
     CARTA baralho[quantCartas];
     ler_cartas(baralho, quantCartas, quantValores);
 
-    //stoogeSort(baralho, 0, quantCartas-1, quantValores, naipes, valores);
+    Timer tempoTimer;
+    double tempoExec;
+    start_timer(&tempoTimer);
 
-    imprimir_baralho(baralho, quantCartas);
+    stoogeSort(baralho, 0, quantCartas-1, quantValores, naipes, valores);
 
-    radixSort(baralho, quantCartas, quantValores, naipes, valores);
+    tempoExec = stop_timer(&tempoTimer);
+    printf("\nTempo de execucao: %lfs\n", tempoExec);
+
+    //imprimir_baralho(baralho, quantCartas);
+
+    //radixSort(baralho, quantCartas, quantValores, naipes, valores);
     
     return 0;
 }
@@ -180,4 +196,14 @@ void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[
     }
 
     return;
+}
+
+void start_timer(Timer *timer){
+    timer->start = clock();
+    return;
+}
+
+double stop_timer(Timer *timer){
+    timer->end = clock();
+    return((double)(timer->end - timer->start)) / CLOCKS_PER_SEC;
 }
