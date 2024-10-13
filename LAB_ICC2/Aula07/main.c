@@ -115,6 +115,8 @@ void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, CARTA na
 }
 
 void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[], char valores[]){
+    CARTA baralhoOrdenado[quantCartas];
+
     /*criando a lista de "dígitos" (valores)*/
     LISTA *vetListas[14];
     for(int i=0; i<14; i++){
@@ -136,8 +138,31 @@ void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[
             lista_inserir(vetListas[valorCarta], itemCarta);
         }
 
+        int k=0;
+        for(int l=0; l<14; l++){
+            while(!lista_vazia(vetListas[l])){
+                //printf("Lista %d nao vazia\n", l);
+                ITEM *itemCarta = lista_remover_inicio(vetListas[l]);
+                //printf("Item removido\n");
+                CARTA *pontCarta = (CARTA *)item_getDado(itemCarta);
+                baralhoOrdenado[k] = *pontCarta;
+                //printf("Carta inserida no baralho: %s %s\n", pontCarta->naipe, pontCarta->valores);
+                
+                item_apagar(&itemCarta);
+                //printf("Item apagado\n");
+                itemCarta = NULL;
+                pontCarta = NULL;
+
+
+                k++;
+            }
+        }
 
         break;
+    }
+
+    for(int i=0; i<quantCartas; i++){
+        baralho[i] = baralhoOrdenado[i];
     }
 
     /*for(int i=0; i<14; i++){
