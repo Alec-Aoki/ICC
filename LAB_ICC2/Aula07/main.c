@@ -15,6 +15,7 @@ void ler_cartas(CARTA baralho[], int quantCartas, int quantValores);
 void imprimir_baralho(CARTA baralho[], int quantCartas);
 bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[], char valores[], int quantValores); //true: carta1 < carta2
 void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, CARTA naipes[], char valores[]);
+void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[], char valores[]);
 
 int main(void){
     /*vetores auxiliares para compararmos duas cartas*/
@@ -41,7 +42,10 @@ int main(void){
     CARTA baralho[quantCartas];
     ler_cartas(baralho, quantCartas, quantValores);
 
-    stoogeSort(baralho, 0, quantCartas-1, quantValores, naipes, valores);
+    //stoogeSort(baralho, 0, quantCartas-1, quantValores, naipes, valores);
+    radixSort(baralho, quantCartas, quantValores, naipes, valores);
+
+    printf("\n");
 
     imprimir_baralho(baralho, quantCartas);
     
@@ -111,10 +115,35 @@ void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, CARTA na
 }
 
 void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[], char valores[]){
+    /*criando a lista de "dígitos" (valores)*/
     LISTA *vetListas[14];
     for(int i=0; i<14; i++){
         vetListas[i] = lista_criar(false);
     }
+
+    /*analisando os valores das cartas (naipe não incluso)*/
+    for(int i=quantValores-1; i>=0; i--){
+        for(int j=0; j<quantCartas; j++){
+            /*encontrando o valor do dígito sendo analisado
+            estamos analisando o dígito i da carta j do baralho
+            esse dígito tem o valor valorCarta, que corresponde a qual lista ele deve ser inserido
+            */
+            int valorCarta = 0;
+            while(baralho[j].valores[i] != valores[valorCarta]) valorCarta++;
+
+            /*adicionar a carta na lista correspondente*/
+            ITEM *itemCarta = item_criar(&(baralho[j]), j);
+            lista_inserir(vetListas[valorCarta], itemCarta);
+        }
+
+
+        break;
+    }
+
+    /*for(int i=0; i<14; i++){
+        printf("Lista[%d]: ", i);
+        lista_imprimir(vetListas[i], false);
+    }*/
 
     return;
 }

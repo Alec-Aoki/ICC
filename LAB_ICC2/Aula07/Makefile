@@ -1,11 +1,8 @@
-all: main.o 
-	gcc main.o -o main -std=c99 -Wall
-
-main.o:
-	gcc -c main.c
+all:
+	gcc item.c lista.c main.c -o main -std=c99 -Wall
 
 clean:
-	rm *.o main
+	rm main
 
 run:
 	./main
