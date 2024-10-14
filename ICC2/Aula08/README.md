@@ -95,5 +95,6 @@ void countingSort(int v[], int tam){
         v[i] = vAux[i];
     }
 
+    return;
 }
 ```
