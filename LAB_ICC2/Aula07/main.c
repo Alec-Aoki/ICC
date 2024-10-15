@@ -22,17 +22,17 @@ typedef struct carta_{
 
 void ler_cartas(CARTA baralho[], int quantCartas, int quantValores);
 void imprimir_baralho(CARTA baralho[], int quantCartas);
-bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[], char valores[], int quantValores); //true: carta1 < carta2
-void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, CARTA naipes[], char valores[]);
-void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[], char valores[]);
+bool comparar_cartas(CARTA carta1, CARTA carta2, char naipes[][4], char valores[], int quantValores); //true: carta1 < carta2
+void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, char naipes[][4], char valores[]);
+void radixSort(CARTA baralho[], int quantCartas, int quantValores, char naipes[][4], char valores[]);
 
 int main(void){
     /*vetores auxiliares para acharmos os valores de uma carta*/
-    CARTA naipes[4];
-    strcpy(naipes[0].naipe, "♦");
-    strcpy(naipes[1].naipe, "♠");
-    strcpy(naipes[2].naipe, "♥");
-    strcpy(naipes[3].naipe, "♣");
+    char naipes[4][4];
+    strcpy(naipes[0], "♦");
+    strcpy(naipes[1], "♠");
+    strcpy(naipes[2], "♥");
+    strcpy(naipes[3], "♣");
     char valores[10];
     valores[0] = '4';
     valores[1] = '5';
@@ -58,9 +58,10 @@ int main(void){
     stoogeSort(baralho, 0, quantCartas-1, quantValores, naipes, valores);
 
     tempoExec = stop_timer(&tempoTimer);
-    printf("\nTempo de execucao: %lfs\n", tempoExec);
 
-    //imprimir_baralho(baralho, quantCartas);
+    imprimir_baralho(baralho, quantCartas);
+
+    printf("\nTempo de execucao: %lfs\n", tempoExec);
 
     //radixSort(baralho, quantCartas, quantValores, naipes, valores);
     
@@ -86,51 +87,46 @@ void imprimir_baralho(CARTA baralho[], int quantCartas){
     return;
 }
 
-bool comparar_cartas(CARTA carta1, CARTA carta2, CARTA naipes[], char valores[], int quantValores){
+bool comparar_cartas(CARTA carta1, CARTA carta2, char naipes[][4], char valores[], int quantValores){
     int naipeCarta1=0, naipeCarta2=0;
-    while(strncmp(carta1.naipe, naipes[naipeCarta1].naipe, 3) != 0) naipeCarta1++;
-    while(strncmp(carta2.naipe, naipes[naipeCarta2].naipe, 3) != 0) naipeCarta2++;
+    while(strncmp(carta1.naipe, naipes[naipeCarta1], 3) != 0) naipeCarta1++;
+    while(strncmp(carta2.naipe, naipes[naipeCarta2], 3) != 0) naipeCarta2++;
 
     if(naipeCarta1 < naipeCarta2) return true;
-    else if(naipeCarta2 < naipeCarta1) return false;
+    else if(naipeCarta1 > naipeCarta2) return false;
     else{
         /*naipes iguais, checar os valores das cartas*/
-        int valorCarta1=0, valorCarta2=0;
         for(int i=0; i<quantValores; i++){
+            int valorCarta1=0, valorCarta2=0;
             while(carta1.valores[i] != valores[valorCarta1]) valorCarta1++;
             while(carta2.valores[i] != valores[valorCarta2]) valorCarta2++;
 
             if(valorCarta1 < valorCarta2) return true;
+            else if(valorCarta1 > valorCarta2) return false;
         }
     }
 
     return false;
 }
 
-void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, CARTA naipes[], char valores[]){
-    if(fim >= inicio){
-        return;
-    }
-
+void stoogeSort(CARTA baralho[], int inicio, int fim, int quantValores, char naipes[][4], char valores[]){    
     if(comparar_cartas(baralho[fim], baralho[inicio], naipes, valores, quantValores)){
         CARTA cartaAux = baralho[inicio];
         baralho[inicio] = baralho[fim];
         baralho[fim] = cartaAux;
     }
+    
+    if(inicio + 1 >= fim) return;
     //else:
-    int t = fim-inicio+1;
-    if(t > 2){
-        t = (int)(t/3);
-
-        stoogeSort(baralho, inicio, fim-t, quantValores, naipes, valores);
-        stoogeSort(baralho, inicio+t, fim, quantValores, naipes, valores);
-        stoogeSort(baralho, inicio, fim-t, quantValores, naipes, valores);
-    }
+    int t = ((fim-inicio+1)/3);
+    stoogeSort(baralho, inicio, fim-t, quantValores, naipes, valores);
+    stoogeSort(baralho, inicio+t, fim, quantValores, naipes, valores);
+    stoogeSort(baralho, inicio, fim-t, quantValores, naipes, valores);
 
     return;
 }
 
-void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[], char valores[]){
+void radixSort(CARTA baralho[], int quantCartas, int quantValores, char naipes[][4], char valores[]){
     CARTA baralhoOrdenado[quantCartas];
 
     /*criando a lista de "dígitos" (valores)*/
@@ -151,7 +147,7 @@ void radixSort(CARTA baralho[], int quantCartas, int quantValores, CARTA naipes[
                 while(baralho[j].valores[i] != valores[valorCarta]) valorCarta++;
             }
             else{
-                while(strncmp(baralho[j].naipe, naipes[valorCarta].naipe, 3) != 0) valorCarta++;
+                while(strncmp(baralho[j].naipe, naipes[valorCarta], 3) != 0) valorCarta++;
 
                 valorCarta+=10;
             }
