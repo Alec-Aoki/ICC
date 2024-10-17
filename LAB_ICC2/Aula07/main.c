@@ -61,7 +61,7 @@ int main(void){
 
     imprimir_baralho(baralho, quantCartas);
 
-    printf("\nTempo de execucao: %lfs\n", tempoExec);
+    //printf("\nTempo de execucao: %lfs\n", tempoExec);
 
     //radixSort(baralho, quantCartas, quantValores, naipes, valores);
     
