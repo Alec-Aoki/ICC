@@ -6,10 +6,12 @@
 #include <stdlib.h>
 
 void quicksort(unsigned long int v[], int inicio, int fim);
+unsigned long int buscaBinaria(unsigned long int v[], int inicio, int fim, unsigned long int chave);
 
 int main(void){
-    int quantCartas, chave;
-    scanf("%d %d", &quantCartas, &chave);
+    int quantCartas;
+    unsigned long int chave;
+    scanf("%d %ld", &quantCartas, &chave);
 
     unsigned long int *vetInt = (unsigned long int *)malloc(quantCartas * sizeof(unsigned long int));
     if(vetInt == NULL){
@@ -29,14 +31,31 @@ int main(void){
 
     quicksort(vetInt, 0, quantCartas-1);
 
-    for(int i=0; i<quantCartas; i++){
+    /*for(int i=0; i<quantCartas; i++){
         printf("%ld ", vetInt[i]);
     }
-    printf("\n");
+    printf("\n");*/
+
+    printf("%ld\n", buscaBinaria(vetInt, 0, quantCartas-1, chave));
 
     free(vetInt);
 
     return 0;
+}
+
+
+unsigned long int buscaBinaria(unsigned long int v[], int inicio, int fim, unsigned long int chave){
+    int meio = (inicio + fim)/2;
+
+    if(v[meio] == chave){
+        return meio;
+    }
+    else if(chave > v[meio]){
+        return buscaBinaria(v, meio+1, fim, chave);
+    }
+    else{
+        return buscaBinaria(v, inicio, meio-1, chave);
+    }
 }
 
 void quicksort(unsigned long int v[], int inicio, int fim){
