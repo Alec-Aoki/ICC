@@ -29,10 +29,10 @@ int main(void){
 
     quicksort(vetNos, 0, quantCartas-1);
 
-    for(int i=0; i<quantCartas; i++){
+    /*for(int i=0; i<quantCartas; i++){
         printf("%d ", vetNos[i].numero);
     }
-    printf("\n");
+    printf("\n");*/
 
     //printf("%d\n", buscaBinaria(vetNos, 0, quantCartas-1, chave) + 1);
 
