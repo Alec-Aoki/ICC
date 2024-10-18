@@ -60,7 +60,7 @@ void quicksort(NO v[], int inicio, int fim){
     if(fim <= inicio) return;
 
     int pivot = (inicio + fim)/2;
-    unsigned long int aux = v[fim];
+    NO aux = v[fim];
     v[fim] = v[pivot];
     v[pivot] = aux;
     pivot = fim;
@@ -69,7 +69,7 @@ void quicksort(NO v[], int inicio, int fim){
     int j = inicio;
 
     while(j < fim){
-        if(v[j] < v[fim]){
+        if(v[j].numero < v[fim].numero){
             i++;
             aux = v[i];
             v[i] = v[j];
