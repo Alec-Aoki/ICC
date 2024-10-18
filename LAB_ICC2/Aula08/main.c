@@ -8,22 +8,22 @@ Solução:
 #include <stdlib.h>
 
 typedef struct{
-    unsigned long int numero;
+    int numero;
     int indiceOriginal;
 }NO;
 
 void quicksort(NO v[], int inicio, int fim);
-unsigned long int buscaBinaria(unsigned long int v[], int inicio, int fim, unsigned long int chave);
+int buscaBinaria(NO v[], int inicio, int fim, int chave);
 
 int main(void){
     int quantCartas;
-    unsigned long int chave;
-    scanf("%d %ld", &quantCartas, &chave);
+    int chave;
+    scanf("%d %d", &quantCartas, &chave);
 
     NO vetNos[quantCartas];
 
     for(int i=0; i<quantCartas; i++){
-        scanf("%ld", &(vetNos[i].numero));
+        scanf("%d", &(vetNos[i].numero));
         vetNos[i].indiceOriginal = i;
     }
 
@@ -34,21 +34,21 @@ int main(void){
     }
     printf("\n");*/
 
-    printf("%ld\n", buscaBinaria(vetInt, 0, quantCartas-1, chave) + 1);
+    //printf("%d\n", buscaBinaria(vetNos, 0, quantCartas-1, chave) + 1);
 
-    free(vetInt);
+    free(vetNos);
 
     return 0;
 }
 
 
-unsigned long int buscaBinaria(unsigned long int v[], int inicio, int fim, unsigned long int chave){
+int buscaBinaria(NO v[], int inicio, int fim, int chave){
     int meio = (inicio + fim)/2;
 
-    if(v[meio] == chave){
-        return meio;
+    if(v[meio].numero == chave){
+        return v[meio].indiceOriginal;
     }
-    else if(chave > v[meio]){
+    else if(chave > v[meio].numero){
         return buscaBinaria(v, meio+1, fim, chave);
     }
     else{
