@@ -1,9 +1,16 @@
 /*
 - Ordernar as cartas
 - Aplicar a busca binária
+Como ordenamos as cartas para aplicar a busca binária, "perdemos" seu índice original
+Solução:
 */
 #include <stdio.h>
 #include <stdlib.h>
+
+typedef struct{
+    unsigned long int numero;
+    int indiceOriginal;
+}NO;
 
 void quicksort(unsigned long int v[], int inicio, int fim);
 unsigned long int buscaBinaria(unsigned long int v[], int inicio, int fim, unsigned long int chave);
@@ -13,20 +20,15 @@ int main(void){
     unsigned long int chave;
     scanf("%d %ld", &quantCartas, &chave);
 
-    unsigned long int *vetInt = (unsigned long int *)malloc(quantCartas * sizeof(unsigned long int));
-    if(vetInt == NULL){
+    NO *vetNos = (NO *)malloc(quantCartas * sizeof(NO));
+    if(vetNos == NULL){
         printf("Erro ao alocar memoria\n");
         exit(1);
     }
 
     for(int i=0; i<quantCartas; i++){
-        scanf("%ld", &vetInt[i]);
-        /* Hehehehe
-        if(vetInt[i] == chave){
-            printf("%d\n", i);
-            return 0;
-        }
-        */
+        scanf("%ld", &(vetNos[i].numero));
+        vetNos[i].indiceOriginal = i;
     }
 
     quicksort(vetInt, 0, quantCartas-1);
@@ -36,7 +38,7 @@ int main(void){
     }
     printf("\n");*/
 
-    printf("%ld\n", buscaBinaria(vetInt, 0, quantCartas-1, chave));
+    printf("%ld\n", buscaBinaria(vetInt, 0, quantCartas-1, chave) + 1);
 
     free(vetInt);
 
@@ -59,7 +61,7 @@ unsigned long int buscaBinaria(unsigned long int v[], int inicio, int fim, unsig
 }
 
 void quicksort(unsigned long int v[], int inicio, int fim){
-    if(fim <= inicio) return; //caso base
+    if(fim <= inicio) return;
 
     int pivot = (inicio + fim)/2;
     unsigned long int aux = v[fim];
