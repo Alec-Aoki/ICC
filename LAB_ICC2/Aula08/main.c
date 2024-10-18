@@ -1,9 +1,3 @@
-/*
-- Ordernar as cartas
-- Aplicar a busca binária
-Como ordenamos as cartas para aplicar a busca binária, "perdemos" seu índice original
-Solução:
-*/
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -29,12 +23,9 @@ int main(void){
 
     quicksort(vetNos, 0, quantCartas-1);
 
-    /*for(int i=0; i<quantCartas; i++){
-        printf("%d ", vetNos[i].numero);
-    }
-    printf("\n");*/
+    int posicaoChave = buscaBinaria(vetNos, 0, quantCartas-1, chave);
 
-    //printf("%d\n", buscaBinaria(vetNos, 0, quantCartas-1, chave) + 1);
+    printf("%d\n", posicaoChave+1); //+1 pois considera que o índice começa em 1
 
     return 0;
 }
@@ -67,7 +58,7 @@ void quicksort(NO v[], int inicio, int fim){
     int j = inicio;
 
     while(j < fim){
-        if(v[j].numero < v[fim].numero){
+        if(v[j].numero <= v[fim].numero){
             i++;
             aux = v[i];
             v[i] = v[j];
