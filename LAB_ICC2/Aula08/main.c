@@ -12,7 +12,7 @@ typedef struct{
     int indiceOriginal;
 }NO;
 
-void quicksort(unsigned long int v[], int inicio, int fim);
+void quicksort(NO v[], int inicio, int fim);
 unsigned long int buscaBinaria(unsigned long int v[], int inicio, int fim, unsigned long int chave);
 
 int main(void){
@@ -20,18 +20,14 @@ int main(void){
     unsigned long int chave;
     scanf("%d %ld", &quantCartas, &chave);
 
-    NO *vetNos = (NO *)malloc(quantCartas * sizeof(NO));
-    if(vetNos == NULL){
-        printf("Erro ao alocar memoria\n");
-        exit(1);
-    }
+    NO vetNos[quantCartas];
 
     for(int i=0; i<quantCartas; i++){
         scanf("%ld", &(vetNos[i].numero));
         vetNos[i].indiceOriginal = i;
     }
 
-    quicksort(vetInt, 0, quantCartas-1);
+    quicksort(vetNos, 0, quantCartas-1);
 
     /*for(int i=0; i<quantCartas; i++){
         printf("%ld ", vetInt[i]);
@@ -60,7 +56,7 @@ unsigned long int buscaBinaria(unsigned long int v[], int inicio, int fim, unsig
     }
 }
 
-void quicksort(unsigned long int v[], int inicio, int fim){
+void quicksort(NO v[], int inicio, int fim){
     if(fim <= inicio) return;
 
     int pivot = (inicio + fim)/2;
