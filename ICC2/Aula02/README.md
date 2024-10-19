@@ -20,7 +20,7 @@ int busca_binaria(int v[], int inicio, int fim, int chave){
     if(inicio > fim) return -1;
     int meio = (inicio + fim)/2;
     if(v[meio] == chave) return meio;
-    if(v[meio] > chave) return busca_binaria(v, inicio, meio-1, chave);
+    if(v[meio] > chave) return busca_binaria(v, inicio, meio, chave);
     else{return busca_binaria(v, meio+1, fim, chave);}
 }
 ```

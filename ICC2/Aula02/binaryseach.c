@@ -10,7 +10,7 @@ int binarySearch(int v[], int inicio, int fim, int chave){
         return binarySearch(v, meio+1, fim, chave);
     }
     else{
-        return binarySearch(v, inicio, meio-1, chave);
+        return binarySearch(v, inicio, meio, chave);
     }
 }
 
