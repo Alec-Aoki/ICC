@@ -33,10 +33,6 @@ int main(void){
         printf("1\n");
         return 0;
     }
-    /*
-    OBSERVAÇÃO:
-        A busca binária sempre realiza a comparação com o elemento no meio do vetor. Sendo assim, no caso 11 do runcodes (todos os números iguais), a saída produzida seria o índice do meio do vetor. Como queremos detectar a primeira ocorrência, esse resultado estaria errado. Uma forma de prevenir isso seria, a cada chamada da busca binária, conferir se o primeiro elemento é o procurado. Caso não fosse, realizaríamos a busca como normal. Note, no entanto, que isso tornaria o caso 1 incorreto, pois como ordenamos o vetor estaticamente, o primeiro elemento seria aquele com índice 2, sendo que a primeira ocorrência do número 1 está no índice 1. Portanto, temos que checar se o primeiro número do vetor é o procurado antes de realizar qualquer operação de ordenação ou busca. Note também que não há nenhum algoritmo de ordenação com complexidade menor que O(n), portanto, nossa solução completa não terá complexidade de O(log(n)), já que temos que ordernar o vetor antes de realizar a busca. A busca binária por si só, no entanto, tem essa complexidade.
-    */
 
     Timer tempoTimer;
     double tempoExec;
@@ -68,7 +64,7 @@ int buscaBinaria(NO v[], int inicio, int fim, int chave){
         return buscaBinaria(v, meio+1, fim, chave);
     }
     else{
-        return buscaBinaria(v, inicio, meio-1, chave);
+        return buscaBinaria(v, inicio, meio, chave);
     }
 }
 
