@@ -46,9 +46,7 @@ ABB *abb_criar(void){
 void abb_apagar(ABB **arvore){
   if(*arvore == NULL) return;
 
-  while((*arvore)->tamanho > 0){
-    abb_remover(*arvore, (*arvore)->raiz->chave);
-  }
+  no_apagar_recursivo((*arvore)->raiz);
 
   free(*arvore);
   *arvore = NULL;
