@@ -178,8 +178,15 @@ NO *removeRaizABB(NO *noRaiz){
   if(noRaiz->noEsq == NULL){
     noAuxQ = noRaiz->noDir;
 
-    noRaiz->noEsq = NULL;
     noRaiz->noDir = NULL;
+    no_apagar(&noRaiz);
+
+    return noAuxQ;
+  }
+  if(noRaiz->noDir == NULL){
+    noAuxQ = noRaiz->noEsq;
+
+    noRaiz->noEsq = NULL;
     no_apagar(&noRaiz);
 
     return noAuxQ;
