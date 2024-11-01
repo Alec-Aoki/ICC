@@ -17,7 +17,7 @@ struct abb_{
   int tamanho;
 };
 
-NO *noCriar(int chave, NO *noEsq, NO *noDir){
+NO *no_criar(int chave, NO *noEsq, NO *noDir){
   NO *noNovo = (NO *) malloc(sizeof(NO));
   if(noNovo == NULL){
     printf("Erro em noCriar: noNovo == NULL\n");
@@ -30,7 +30,7 @@ NO *noCriar(int chave, NO *noEsq, NO *noDir){
   return noNovo;
 }
 
-bool noApagar(NO **no){
+bool no_apagar(NO **no){
   if(*no == NULL) return true;
 
   free(*no);
@@ -38,9 +38,24 @@ bool noApagar(NO **no){
   return true;
 }
 
-ABB *abb_criar(void);
+ABB *abb_criar(void){
+  ABB *arvore = (ABB *) malloc(sizeof(ABB));
+  if(arvore == NULL){
+    printf("Erro em abb_criar: arvore == NULL\n");
+    return NULL;
+  }
+
+  arvore->raiz = NULL;
+  arvore->tamanho = 0;
+  return arvore;
+}
+
 bool abb_apagar(ABB **arvore);
+
 ABB *abb_inserir(ABB *arvore, int elemento);
+
 int abb_remover(ABB *arvore, int elemento);
+
 void abb_imprimir(ABB *arvore);
+
 bool abb_busca(ABB *arvore, int chave);
