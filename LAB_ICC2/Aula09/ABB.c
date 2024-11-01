@@ -50,8 +50,8 @@ ABB *abb_criar(void){
   return arvore;
 }
 
-bool abb_apagar(ABB **arvore){
-  if(*arvore == NULL) return true;
+void abb_apagar(ABB **arvore){
+  if(*arvore == NULL) return;
 
   while((*arvore)->tamanho > 0){
     abb_remover(*arvore, (*arvore)->raiz->chave);
@@ -59,10 +59,16 @@ bool abb_apagar(ABB **arvore){
 
   free(*arvore);
   *arvore = NULL;
-  return true;
 }
 
-ABB *abb_inserir(ABB *arvore, int elemento);
+bool abb_inserir(ABB *arvore, int elemento){
+  if(arvore == NULL){
+    printf("Erro em abb_inserir: arvore == NULL\n");
+    return false;
+  }
+
+  return true;
+}
 
 int abb_remover(ABB *arvore, int chave);
 
