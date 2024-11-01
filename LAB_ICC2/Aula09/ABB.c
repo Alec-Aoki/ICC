@@ -18,6 +18,7 @@ struct abb_{
 };
 
 NO *inserirABB(NO *noRaiz, NO *noNovo);
+NO *removeRaizABB(NO *noRaiz);
 NO *no_criar(int chave, NO *noEsq, NO *noDir);
 void no_apagar(NO **no);
 
@@ -62,7 +63,8 @@ bool abb_inserir(ABB *arvore, int elemento){
   return true;
 }
 
-int abb_remover(ABB *arvore, int chave);
+int abb_remover(ABB *arvore, int chave){
+}
 
 void abb_imprimir(ABB *arvore);
 
@@ -81,6 +83,10 @@ NO *inserirABB(NO *noRaiz, NO *noNovo){
   }
 
   return noRaiz;
+}
+
+NO *removeRaizABB(NO *noRaiz){
+  
 }
 
 NO *no_criar(int chave, NO *noEsq, NO *noDir){
