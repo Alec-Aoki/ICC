@@ -50,11 +50,21 @@ ABB *abb_criar(void){
   return arvore;
 }
 
-bool abb_apagar(ABB **arvore);
+bool abb_apagar(ABB **arvore){
+  if(*arvore == NULL) return true;
+
+  while((*arvore)->tamanho > 0){
+    abb_remover(*arvore, (*arvore)->raiz->chave);
+  }
+
+  free(*arvore);
+  *arvore = NULL;
+  return true;
+}
 
 ABB *abb_inserir(ABB *arvore, int elemento);
 
-int abb_remover(ABB *arvore, int elemento);
+int abb_remover(ABB *arvore, int chave);
 
 void abb_imprimir(ABB *arvore);
 

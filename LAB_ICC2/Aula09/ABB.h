@@ -6,7 +6,7 @@
   ABB *abb_criar(void);
   bool abb_apagar(ABB **arvore);
   ABB *abb_inserir(ABB *arvore, int elemento);
-  int abb_remover(ABB *arvore, int elemento);
+  int abb_remover(ABB *arvore, int chave);
   void abb_imprimir(ABB *arvore);
   bool abb_busca(ABB *arvore, int chave);
 
