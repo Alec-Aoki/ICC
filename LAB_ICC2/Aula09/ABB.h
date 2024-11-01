@@ -8,6 +8,6 @@
   ABB *abb_inserir(ABB *arvore, int elemento);
   int abb_remover(ABB *arvore, int elemento);
   void abb_imprimir(ABB *arvore);
-  bool abb_busca(ABB *arvore, int elemento);
+  bool abb_busca(ABB *arvore, int chave);
 
 #endif
