@@ -29,6 +29,15 @@ NO *noCriar(int chave, NO *noEsq, NO *noDir){
   return noNovo;
 }
 
+bool noApagar(NO **no){
+  if(*no == NULL) return true;
+
+  free(*no);
+  *no = NULL;
+
+  return true;
+}
+
 ABB *abb_criar(void);
 bool abb_apagar(ABB **arvore);
 ABB *abb_inserir(ABB *arvore, int elemento);
