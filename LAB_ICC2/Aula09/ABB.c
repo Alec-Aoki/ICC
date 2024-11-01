@@ -75,16 +75,25 @@ int abb_remover(ABB *arvore, int chave){
     printf("Erro em abb_remover: arvore == NULL\n");
     return ERRO;
   }
+  if(arvore->raiz == NULL){
+    printf("Erro em abb_remover: arvore->raiz == NULL\n");
+    return ERRO;
+  }
 
   if(chave == arvore->raiz->chave){
-    int elemRemovido = arvore->raiz->chave;
-    arvore->raiz = removeRaizABB(arvore->raiz);
+    NO *raizVelha = arvore->raiz;
+    int elemRemovido = raizVelha->chave;
+
+    arvore->raiz = removeRaizABB(raizVelha);
+    arvore->tamanho--;
+
     return elemRemovido;
   }
 
   NO *noPai = arvore->raiz;
   NO *noPercorrerArvore = arvore->raiz;
   int posicao = NA;
+
   while(noPercorrerArvore->chave != chave){
     posicao = NA;
     noPai = noPercorrerArvore;
@@ -97,6 +106,8 @@ int abb_remover(ABB *arvore, int chave){
       posicao = DIR;
     }
   }
+
+  if(noPercorrerArvore == NULL) return ERRO; //Elemento não encontrado
 
   int elemRemovido = noPercorrerArvore->chave;
   if(posicao == ESQ){
