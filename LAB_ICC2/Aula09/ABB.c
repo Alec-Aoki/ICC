@@ -90,11 +90,11 @@ int abb_remover(ABB *arvore, int chave){
     return elemRemovido;
   }
 
-  NO *noPai = arvore->raiz;
+  NO *noPai = NULL;
   NO *noPercorrerArvore = arvore->raiz;
   int posicao = NA;
 
-  while(noPercorrerArvore->chave != chave){
+  while((noPercorrerArvore != NULL) && (noPercorrerArvore->chave != chave)){
     posicao = NA;
     noPai = noPercorrerArvore;
     if(noPercorrerArvore->chave > chave){

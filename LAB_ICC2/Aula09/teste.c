@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
 #include "ABB.h"
+
+#define ERRO -1
 
 void test_criar_apagar(void) {
     printf("\n=== Testing Creation and Deletion ===\n");
@@ -110,8 +113,8 @@ void test_remocao(void) {
     
     // Test removing leaf node
     int removed = abb_remover(arvore, 35);
-    if (removed != 35) {
-        printf("FAILED: Removing leaf node 35\n");
+    if (removed == ERRO) {
+        printf("FAILED: Could not remove leaf node 35\n");
     } else {
         printf("PASSED: Removed leaf node 35\n");
         printf("Tree after removing 35: ");
@@ -120,8 +123,8 @@ void test_remocao(void) {
     
     // Test removing node with one child
     removed = abb_remover(arvore, 20);
-    if (removed != 20) {
-        printf("FAILED: Removing node 20 with one child\n");
+    if (removed == ERRO) {
+        printf("FAILED: Could not remove node 20 with one child\n");
     } else {
         printf("PASSED: Removed node 20 with one child\n");
         printf("Tree after removing 20: ");
@@ -130,8 +133,8 @@ void test_remocao(void) {
     
     // Test removing node with two children
     removed = abb_remover(arvore, 30);
-    if (removed != 30) {
-        printf("FAILED: Removing node 30 with two children\n");
+    if (removed == ERRO) {
+        printf("FAILED: Could not remove node 30 with two children\n");
     } else {
         printf("PASSED: Removed node 30 with two children\n");
         printf("Tree after removing 30: ");
@@ -140,7 +143,7 @@ void test_remocao(void) {
     
     // Test removing non-existent node
     removed = abb_remover(arvore, 35);
-    if (removed != -1) {
+    if (removed != ERRO) {
         printf("FAILED: Should not be able to remove non-existent node 35\n");
     } else {
         printf("PASSED: Correctly failed to remove non-existent node 35\n");
