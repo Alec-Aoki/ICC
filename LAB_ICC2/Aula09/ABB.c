@@ -24,6 +24,8 @@ struct abb_{
 
 NO *inserirABB(NO *noRaiz, NO *noNovo);
 NO *removeRaizABB(NO *noRaiz);
+void imprimirOrdenada(NO *noRaiz);
+void imprimirNaoOrdenada(NO *noRaiz);
 NO *no_criar(int chave, NO *noEsq, NO *noDir);
 void no_apagar(NO **no);
 
@@ -102,7 +104,23 @@ int abb_remover(ABB *arvore, int chave){
   return elemRemovido;
 }
 
-void abb_imprimir(ABB *arvore);
+void abb_imprimir(ABB *arvore, bool ordenada){
+  if(arvore == NULL){
+    printf("Erro em abb_imprimir: arvore == NULL\n");
+    return;
+  }
+
+  if(ordenada){
+    imprimirOrdenada(arvore->raiz);
+    printf("\n");
+  }
+  else{
+    imprimirNaoOrdenada(arvore->raiz);
+    printf("\n");
+  }
+
+  return;
+}
 
 int abb_busca(ABB *arvore, int chave);
 
@@ -156,6 +174,26 @@ NO *removeRaizABB(NO *noRaiz){
   no_apagar(&noRaiz);
 
   return noAuxQ;
+}
+
+void imprimirNaoOrdenada(NO *noRaiz){
+  if(noRaiz != NULL){
+    printf("%d ", noRaiz->chave);
+    imprimirNaoOrdenada(noRaiz->noEsq);
+    imprimiraoNOrdenada(noRaiz->noDir);
+  }
+
+  return;
+}
+
+void imprimirOrdenada(NO *noRaiz){
+  if(noRaiz != NULL){
+    imprimirOrdenada(noRaiz->noEsq);
+    printf("%d ", noRaiz->chave);
+    imprimirOrdenada(noRaiz->noDir);
+  }
+
+  return;
 }
 
 NO *no_criar(int chave, NO *noEsq, NO *noDir){
