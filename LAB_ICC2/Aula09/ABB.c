@@ -77,6 +77,12 @@ int abb_remover(ABB *arvore, int chave){
     return ERRO;
   }
 
+  if(chave == arvore->raiz->chave){
+    int elemRemovido = arvore->raiz->chave;
+    arvore->raiz = removeRaizABB(arvore->raiz);
+    return elemRemovido;
+  }
+
   NO *noPai = arvore->raiz;
   NO *noPercorrerArvore = arvore->raiz;
   int posicao = NA;
@@ -204,7 +210,7 @@ void imprimirNaoOrdenada(NO *noRaiz){
   if(noRaiz != NULL){
     printf("%d ", noRaiz->chave);
     imprimirNaoOrdenada(noRaiz->noEsq);
-    imprimiraoNOrdenada(noRaiz->noDir);
+    imprimirNaoOrdenada(noRaiz->noDir);
   }
 
   return;
