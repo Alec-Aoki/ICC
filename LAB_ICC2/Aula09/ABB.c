@@ -29,6 +29,7 @@ void imprimirOrdenada(NO *noRaiz);
 void imprimirNaoOrdenada(NO *noRaiz);
 NO *no_criar(int chave, NO *noEsq, NO *noDir);
 void no_apagar(NO **no);
+void no_apagar_recursivo(NO *no);
 
 ABB *abb_criar(void){
   ABB *arvore = (ABB *) malloc(sizeof(ABB));
@@ -244,5 +245,15 @@ void no_apagar(NO **no){
 
   free(*no);
   *no = NULL;
+  return;
+}
+
+void no_apagar_recursivo(NO *no){
+  if(no == NULL) return;
+
+  no_apagar_recursivo(no->noEsq);
+  no_apagar_recursivo(no->noDir);
+  no_apagar(&no);
+
   return;
 }
