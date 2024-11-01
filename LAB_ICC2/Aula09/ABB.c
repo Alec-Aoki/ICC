@@ -30,12 +30,12 @@ NO *no_criar(int chave, NO *noEsq, NO *noDir){
   return noNovo;
 }
 
-bool no_apagar(NO **no){
-  if(*no == NULL) return true;
+void no_apagar(NO **no){
+  if(*no == NULL) return;
 
   free(*no);
   *no = NULL;
-  return true;
+  return;
 }
 
 ABB *abb_criar(void){
