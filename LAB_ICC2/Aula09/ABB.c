@@ -13,7 +13,8 @@ struct no_{
 };
 
 struct abb_{
-
+  NO *raiz;
+  int tamanho;
 };
 
 NO *noCriar(int chave, NO *noEsq, NO *noDir){
@@ -34,7 +35,6 @@ bool noApagar(NO **no){
 
   free(*no);
   *no = NULL;
-
   return true;
 }
 
