@@ -17,6 +17,8 @@ struct abb_{
   int tamanho;
 };
 
+ABB *inserirABB(ABB *arvore, NO *noNovo);
+
 NO *no_criar(int chave, NO *noEsq, NO *noDir){
   NO *noNovo = (NO *) malloc(sizeof(NO));
   if(noNovo == NULL){
@@ -67,6 +69,8 @@ bool abb_inserir(ABB *arvore, int elemento){
     return false;
   }
 
+
+
   return true;
 }
 
@@ -75,3 +79,7 @@ int abb_remover(ABB *arvore, int chave);
 void abb_imprimir(ABB *arvore);
 
 bool abb_busca(ABB *arvore, int chave);
+
+ABB *inserirABB(ABB *arvore, NO *noNovo){
+
+}
