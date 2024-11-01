@@ -17,28 +17,9 @@ struct abb_{
   int tamanho;
 };
 
-ABB *inserirABB(ABB *arvore, NO *noNovo);
-
-NO *no_criar(int chave, NO *noEsq, NO *noDir){
-  NO *noNovo = (NO *) malloc(sizeof(NO));
-  if(noNovo == NULL){
-    printf("Erro em noCriar: noNovo == NULL\n");
-    return NULL;
-  }
-
-  noNovo->chave = chave;
-  noNovo->noEsq = noEsq;
-  noNovo->noDir = noDir;
-  return noNovo;
-}
-
-void no_apagar(NO **no){
-  if(*no == NULL) return;
-
-  free(*no);
-  *no = NULL;
-  return;
-}
+NO *inserirABB(NO *noRaiz, NO *noNovo);
+NO *no_criar(int chave, NO *noEsq, NO *noDir);
+void no_apagar(NO **no);
 
 ABB *abb_criar(void){
   ABB *arvore = (ABB *) malloc(sizeof(ABB));
@@ -65,12 +46,19 @@ void abb_apagar(ABB **arvore){
 
 bool abb_inserir(ABB *arvore, int elemento){
   if(arvore == NULL){
-    printf("Erro em abb_inserir: arvore == NULL\n");
+    printf("Erro 1 em abb_inserir: arvore == NULL\n");
     return false;
   }
 
+  NO *noNovo = no_criar(elemento, NULL, NULL);
 
+  arvore->raiz = inserirABB(arvore->raiz, noNovo);
+  if(arvore->raiz == NULL){
+    printf("Erro 2 em abb_inserir: arvore->raiz == NULL\n");
+    return false;
+  }
 
+  arvore->tamanho++;
   return true;
 }
 
@@ -80,6 +68,38 @@ void abb_imprimir(ABB *arvore);
 
 bool abb_busca(ABB *arvore, int chave);
 
-ABB *inserirABB(ABB *arvore, NO *noNovo){
+NO *inserirABB(NO *noRaiz, NO *noNovo){
+  if(noRaiz == NULL){
+    return noNovo;
+  }
 
+  if(noRaiz->chave > noNovo->chave){
+    noRaiz->noEsq = inserirABB(noRaiz->noEsq, noNovo); 
+  }
+  else{
+    noRaiz->noDir = inserirABB(noRaiz->noDir, noNovo);
+  }
+
+  return noRaiz;
+}
+
+NO *no_criar(int chave, NO *noEsq, NO *noDir){
+  NO *noNovo = (NO *) malloc(sizeof(NO));
+  if(noNovo == NULL){
+    printf("Erro em noCriar: noNovo == NULL\n");
+    return NULL;
+  }
+
+  noNovo->chave = chave;
+  noNovo->noEsq = noEsq;
+  noNovo->noDir = noDir;
+  return noNovo;
+}
+
+void no_apagar(NO **no){
+  if(*no == NULL) return;
+
+  free(*no);
+  *no = NULL;
+  return;
 }
