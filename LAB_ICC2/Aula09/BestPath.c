@@ -1,8 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
+#include<time.h>
+
 
 typedef struct no_ NO;
+
 
 struct no_
 {
@@ -10,11 +13,13 @@ struct no_
     NO *esq, *dir;
 };
 
+
 typedef struct arvore_
 {
     NO *raiz;
     int tamanho;
 }ARVORE;
+
 
 // Modularização
 void imprimi(NO *no);
@@ -24,6 +29,7 @@ void apagar(NO **raiz);
 bool pertence(NO *raiz, int chave);
 NO *remover(NO* raiz, int chave);
 void caminho(NO *raiz, int chave);
+
 
 ARVORE *arvore_criar()
 {
@@ -36,6 +42,7 @@ ARVORE *arvore_criar()
     return arvore;
 }
 
+
 void arvore_apagar(ARVORE **arvore)
 {
     if(*arvore != NULL)
@@ -46,17 +53,20 @@ void arvore_apagar(ARVORE **arvore)
     }
 }
 
+
 void apagar(NO **raiz)
 {
     if(*raiz == NULL)
         return;
-    
+   
     apagar(&((*raiz)->esq));
     apagar(&((*raiz)->dir));
+
 
     free(*raiz);
     *raiz = NULL;
 }
+
 
 void arvore_inserir(ARVORE *arvore, int chave)
 {
@@ -66,6 +76,7 @@ void arvore_inserir(ARVORE *arvore, int chave)
         arvore->tamanho++;
     }
 }
+
 
 NO* inserir(NO *raiz, int chave)
 {
@@ -78,12 +89,14 @@ NO* inserir(NO *raiz, int chave)
         return novo_no;
     }
 
+
     // Percorra a subárvore esquerda se os dados
     // forem menores que o nó atual
     if (chave < raiz->chave) {
         raiz->esq = inserir(raiz->esq, chave);
         return raiz;
     }
+
 
     // Percorra a subárvore direita se os dados
     // forem maiores que o nó atual
@@ -95,6 +108,7 @@ NO* inserir(NO *raiz, int chave)
         return raiz;
 }
 
+
 // Retorna se esse elemento pertence ao arvore.
 bool arvore_pertence(ARVORE *arvore, int chave)
 {
@@ -105,17 +119,20 @@ bool arvore_pertence(ARVORE *arvore, int chave)
     return false;
 }
 
+
 // Verifica se o elemento está no NO, caso não, verifica-se para os filhos.
 bool pertence(NO *raiz, int chave)
 {
-    if (raiz == NULL) 
+    if (raiz == NULL)
         return 0;
-    
+   
     if(raiz->chave == chave)
         return true;
 
+
     return pertence(raiz->esq, chave) || pertence(raiz->dir, chave);
 }
+
 
 void menor_caminho(ARVORE *arvore, int chave)
 {
@@ -124,15 +141,17 @@ void menor_caminho(ARVORE *arvore, int chave)
         // Buscar e imprimir caminho
         caminho(arvore->raiz, chave);
     }
-    
+   
     return;
 }
+
 
 void caminho(NO *raiz, int chave)
 {
     if(raiz != NULL)
     {
         printf("%d ", raiz->chave);
+
 
         if(raiz->chave == chave)
             return;
@@ -142,16 +161,24 @@ void caminho(NO *raiz, int chave)
             caminho(raiz->esq, chave);
     }
     else printf("%d ", -1);
-    return;     
+    return;    
 }
+
 
 int main()
 {
     int tamanho_arvore;
 
+
     scanf("%d", &tamanho_arvore);
 
+
+    clock_t start, end;
+    double cpu_tempo_ms;
+
+
     ARVORE *arvore = arvore_criar();
+
 
     for(int i = 0; i < tamanho_arvore; i++)
     {
@@ -160,19 +187,30 @@ int main()
         arvore_inserir(arvore, aux);
     }
 
+
     int numero_buscado;
     scanf("%d", &numero_buscado);
 
+
+    start = clock();
+
+
     menor_caminho(arvore, numero_buscado);
+
+
+    end = clock();
+
+
+    cpu_tempo_ms = (double) (end - start)/ CLOCKS_PER_SEC *1000;
+
+
+    printf("\nTempo de execucao: %lfms\n", cpu_tempo_ms);
+
 
     arvore_apagar(&arvore);
 
+
     return 0;
 
+
 }
-/*
-Caso teste:
-9
-8 3 10 1 6 14 4 7 13
-7 
-*/
