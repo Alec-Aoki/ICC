@@ -20,7 +20,7 @@
 - Árvores;
 - Hashing.
 
-## Busca Sequencial
+### Busca Sequencial
 
 - Complexidade: $O(n)$;
 - Aplicável em um vetor *sequencial* ou *encadeado*;
@@ -58,3 +58,13 @@ int buscaSequencial(int v[], int tamV, int chave){
         - Inserir ordenadamente: $O(n)$;
         - Ordernar o vetor: $\Omega(n \log(n))$;
   - Observação: todas essas melhorias mantém a complexidade $O(n)$, mas podem reduzir o tempo de busca na prática.
+
+#### Busca Indexada (Tabela de Índices)
+
+1. Montar o índice primário;
+   1. Se a tabela não estiver ordenada, ordenar;
+   2. $k = \frac{n}{\text{tamanho desejado do índice}}$, $k$ o intervalo de elementos e $n$ a quantidade total de elementos do vetor;
+   3. Recuperar da tabela os elementos de $k$ em $k$, que indicam o ínicio de cada intervalo na tabela original;
+2. Para índices subsequentes, aplicar a mesma lógica, mas sobre o índice anterior (não sobre o original).
+
+Observação: geralmente, não é necessários mais que 2 índices.
