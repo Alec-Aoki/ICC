@@ -41,12 +41,20 @@ int buscaSequencial(int v[], int tamV, int chave){
   - **Sentinela**;
   - **Recuperação recorrente de registros**: reordernar a tabela continuamente de forma que os registros mais acessados sejam deslocados para o início do vetor;
     - **Mover-para-frente**: o registro encontrado é movido para o início do vetor;
+      - Desvantagens:
+        - Recuperar o registro uma vez não significa que ele será recuperado novamente;
+        - Necessidade de shiftar todos os elementos do vetor;
+      - Vantagens:
+        - Busca mais rápida para vetores médios/pequenos;
     - **Transposição**: o registro encontrado é trocado com o anterior;
   - **Tabela de índices**;
-    - Forma uma tabela auxiliar com elementos obtidos pulando de $k$ em $k$ na tabela original (**ordenada**);
+    - Forma uma tabela auxiliar com elementos obtidos pulando de $k$ em $k$ na tabela original (tem que estar **ordenada**);
     - Localizamos em que intervalo dessa tabela auxiliar está a chave procurada;
-    - Procuramos sequencialmente nesse intervalo;
-  - Observação: todas essas melhorias mantém a complexidade $O(n)$, mas podem reduzir o tempo de busca na prática;
-- Observação: o vetor estar ordenado não é, necessariamente, uma melhoria;
-  - Vantagem: podemos parar a busca se encontrarmos uma chave maior que a procurada;
-  - Desvantagem: temos que inserir ordenadamente ($O(n)$) e ordernar o vetor ($O(n \log(n))$).
+    - Procuramos sequencialmente, na tabela original, nesse intervalo;
+  - **Vetor ordenado**;
+    - Vantagens:
+      - Podemos parar a busca se encontrarmos uma chave maior que a buscada;
+      - Desvantagens:
+        - Inserir ordenadamente: $O(n)$;
+        - Ordernar o vetor: $\Omega(n \log(n))$;
+  - Observação: todas essas melhorias mantém a complexidade $O(n)$, mas podem reduzir o tempo de busca na prática.

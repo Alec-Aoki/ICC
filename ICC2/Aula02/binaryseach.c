@@ -1,16 +1,20 @@
 #include <stdio.h>
 
+#define ERRO -1
+
 int binarySearch(int v[], int inicio, int fim, int chave){
+    if(inicio > fim) return ERRO;
+
     int meio = (inicio + fim)/2;
 
     if(v[meio] == chave){
         return meio;
     }
-    else if(chave > v[meio]){
-        return binarySearch(v, meio+1, fim, chave);
+    else if(chave < v[meio]){
+        return binarySearch(v, inicio, meio-1, chave);
     }
     else{
-        return binarySearch(v, inicio, meio, chave);
+        return binarySearch(v, meio+1, fim, chave);
     }
 }
 

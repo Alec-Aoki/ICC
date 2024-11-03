@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void intercala(int esquerda[], int tam_esq, int direita[], int tam_dir, int v[]);
+void merge(int esquerda[], int tam_esq, int direita[], int tam_dir, int v[]);
 void mergesort(int v[], int tam);
 
 int main(void){
@@ -16,8 +16,7 @@ int main(void){
     return 0;
 }
 
-void intercala(int esquerda[], int tam_esq, int direita[], int tam_dir, int v[]){
-
+void merge(int esquerda[], int tam_esq, int direita[], int tam_dir, int v[]){
     int i=0, e=0, d=0;
 
     /*escrevendo de volta no vetor v*/
@@ -71,7 +70,7 @@ void mergesort(int v[], int tam){
 
     mergesort(esquerda, meio); //note que v[] é o vetor esquerda[]!
     mergesort(direita, tam-meio);
-    intercala(esquerda, meio, direita, tam-meio, v);
+    merge(esquerda, meio, direita, tam-meio, v);
 
     return;
 }
