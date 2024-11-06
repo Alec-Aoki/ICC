@@ -3,59 +3,47 @@
 #include<stdbool.h>
 #include<time.h>
 
-
 typedef struct no_ NO;
 
-
-struct no_
-{
+struct no_{
     int chave;
     NO *esq, *dir;
 };
 
 
-typedef struct arvore_
-{
+typedef struct arvore_{
     NO *raiz;
     int tamanho;
 }ARVORE;
 
 
 // Modularização
-void imprimi(NO *no);
-NO* pegarSuccessor(NO* no);
 NO* inserir(NO *raiz, int chave);
 void apagar(NO **raiz);
 bool pertence(NO *raiz, int chave);
-NO *remover(NO* raiz, int chave);
 void caminho(NO *raiz, int chave);
 
-
-ARVORE *arvore_criar()
-{
+ARVORE *arvore_criar(){
     ARVORE *arvore = (ARVORE*) malloc(sizeof(ARVORE));
-    if(arvore != NULL)
-    {
+    if(arvore != NULL){
         arvore->raiz = NULL;
         arvore->tamanho = 0;
     }
+
     return arvore;
 }
 
-
-void arvore_apagar(ARVORE **arvore)
-{
-    if(*arvore != NULL)
-    {
+void arvore_apagar(ARVORE **arvore){
+    if(*arvore != NULL){
         apagar(&((*arvore)->raiz));
         free(*arvore);
         *arvore = NULL;
     }
+
+    return;
 }
 
-
-void apagar(NO **raiz)
-{
+void apagar(NO **raiz){
     if(*raiz == NULL)
         return;
    
@@ -65,21 +53,21 @@ void apagar(NO **raiz)
 
     free(*raiz);
     *raiz = NULL;
+
+    return;
 }
 
-
-void arvore_inserir(ARVORE *arvore, int chave)
-{
+void arvore_inserir(ARVORE *arvore, int chave){
     if(arvore != NULL)
     {
         arvore->raiz = inserir(arvore->raiz, chave);
         arvore->tamanho++;
     }
+
+    return;
 }
 
-
-NO* inserir(NO *raiz, int chave)
-{
+NO* inserir(NO *raiz, int chave){
     // Adiciona o no quando o no NULO é encontrado.
     if (raiz == NULL) {
         NO* novo_no = (NO*) malloc(sizeof(NO));
@@ -89,14 +77,12 @@ NO* inserir(NO *raiz, int chave)
         return novo_no;
     }
 
-
     // Percorra a subárvore esquerda se os dados
     // forem menores que o nó atual
     if (chave < raiz->chave) {
         raiz->esq = inserir(raiz->esq, chave);
         return raiz;
     }
-
 
     // Percorra a subárvore direita se os dados
     // forem maiores que o nó atual
@@ -108,23 +94,21 @@ NO* inserir(NO *raiz, int chave)
         return raiz;
 }
 
-
 // Retorna se esse elemento pertence ao arvore.
-bool arvore_pertence(ARVORE *arvore, int chave)
-{
-    if(arvore != NULL)
-    {
+bool arvore_pertence(ARVORE *arvore, int chave){
+    if(arvore != NULL){
         return pertence(arvore->raiz, chave);
     }
+
     return false;
 }
 
-
 // Verifica se o elemento está no NO, caso não, verifica-se para os filhos.
-bool pertence(NO *raiz, int chave)
-{
+bool pertence(NO *raiz, int chave){
     if (raiz == NULL)
         return 0;
+
+    printf("%d ", raiz->chave);
    
     if(raiz->chave == chave)
         return true;
@@ -133,11 +117,8 @@ bool pertence(NO *raiz, int chave)
     return pertence(raiz->esq, chave) || pertence(raiz->dir, chave);
 }
 
-
-void menor_caminho(ARVORE *arvore, int chave)
-{
-    if(arvore != NULL)
-    {
+void menor_caminho(ARVORE *arvore, int chave){
+    if(arvore != NULL){
         // Buscar e imprimir caminho
         caminho(arvore->raiz, chave);
     }
@@ -145,11 +126,8 @@ void menor_caminho(ARVORE *arvore, int chave)
     return;
 }
 
-
-void caminho(NO *raiz, int chave)
-{
-    if(raiz != NULL)
-    {
+void caminho(NO *raiz, int chave){
+    if(raiz != NULL){
         printf("%d ", raiz->chave);
 
 
@@ -161,56 +139,43 @@ void caminho(NO *raiz, int chave)
             caminho(raiz->esq, chave);
     }
     else printf("%d ", -1);
+
     return;    
 }
 
-
-int main()
-{
+int main(void){
     int tamanho_arvore;
 
-
     scanf("%d", &tamanho_arvore);
-
 
     clock_t start, end;
     double cpu_tempo_ms;
 
-
     ARVORE *arvore = arvore_criar();
 
-
-    for(int i = 0; i < tamanho_arvore; i++)
-    {
+    for(int i = 0; i < tamanho_arvore; i++){
         int aux;
         scanf("%d", &aux);
         arvore_inserir(arvore, aux);
     }
 
-
     int numero_buscado;
     scanf("%d", &numero_buscado);
 
-
     start = clock();
 
-
     menor_caminho(arvore, numero_buscado);
-
+    //pertence(arvore->raiz, numero_buscado);
 
     end = clock();
 
+    printf("\nBusca binária\n");
+    //printf("\nBusca sequencial\n");
 
     cpu_tempo_ms = (double) (end - start)/ CLOCKS_PER_SEC *1000;
-
-
     printf("\nTempo de execucao: %lfms\n", cpu_tempo_ms);
-
 
     arvore_apagar(&arvore);
 
-
     return 0;
-
-
 }
