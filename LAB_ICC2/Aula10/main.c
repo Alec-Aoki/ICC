@@ -1,5 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
+typedef struct{
+    clock_t start;
+    clock_t end;
+}Timer;
+void start_timer(Timer *timer);
+double stop_timer(Timer *timer);
 
 #define ERRO -1
 
@@ -20,9 +28,16 @@ int main(void){
     vetProd[i] = prod;
   }
 
+  Timer tempoTimer;
+  double tempoExec;
+  start_timer(&tempoTimer);
+
   mergesort(vetProd, quantProd);
 
   printf("%d\n", tamSeqContinua(vetProd, quantProd));
+
+  tempoExec = stop_timer(&tempoTimer);
+  printf("\nTempo de execucao: %lfs\n", tempoExec);
 
   return EXIT_SUCCESS;
 }
@@ -122,4 +137,14 @@ int buscaBinaria(int v[], int inicio, int fim, int chave){
   else{
     return buscaBinaria(v, meio+1, fim, chave);
   }
+}
+
+void start_timer(Timer *timer){
+    timer->start = clock();
+    return;
+}
+
+double stop_timer(Timer *timer){
+    timer->end = clock();
+    return((double)(timer->end - timer->start)) / CLOCKS_PER_SEC;
 }
