@@ -82,6 +82,7 @@ int buscaInterpolacao(int v[], int tam, int chave){
   - Determinística: a função sempre fornece o mesmo resultado para a mesma entrada;
     - Colisão: quando a função hash produz o mesmo endereço para duas chaves diferentes;
       - Chaves com endereços iguais são chamadas sinônimos;
+  - Desvantagem: os elementos não estão armazenados sequencialmente;
 - Uma boa função hash distribui uniformemente os dados, evita colisões e é fácil de computar;
   - Exemplo:
     - **Chaves inteiras**: dado ```k``` o valor da chave e ```B``` o tamanho do espaço de endereçamento, temos ```posChave = k%B```;
