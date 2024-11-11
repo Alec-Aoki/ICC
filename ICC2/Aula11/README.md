@@ -109,5 +109,26 @@ int buscaInterpolacao(int v[], int tam, int chave){
   - Retorna o próximo bucket livre;
     - Idealmente, evita o agrupamento de dados (melhor espalhamento na tabela);
 #### Overflow Progressivo
-- $h(k) = (h(k) + i) \text{mod} B$, $i \in [1, B-1]$;
-  - Incrementamos $i$ de um em um.
+- Sondagem linear: $h(k) = (h(k) + i) \text{mod} B$, $i \in [1, B-1]$;
+  - Incrementamos $i$ de um em um;
+- Sondagem quadrádica: $h(k) = (h(k) + c_1 \times i + c_2 \times i^2) \text{mod} B$, $i \in [1, B-1]$.
+#### Hashing Secundário
+- $ h(k) = (h(k) + i \times haux(k)) \text{mod} B $;
+  - $ h(k) = k \text{mod} B $;
+  - $ haux(k) = 1 + (k \text{mod} (B - 1)) $.
+#### Generalizando
+- $ h(k, i) = (k + 1) \text{mod} B $, $ i \in [0, B - 1] $.
+
+### Hashing Aberto
+- Cada bucket aponta para uma estrutura de dados (acesso à estrutura em $O(1)$) ;
+- Vantagens:
+  - A tabela pode armazenar mais itens que o tamanho da tabela (mais itens que a quantidade de buckets);
+- Desvantagens:
+  - A complexidade de tempo irá depender da estrutura apontada pelo bucket.
+
+## Boas Funções de Hash
+- Resto da divisão por primo: $h(k) = k \text{mod} B$, $B$ primo maior ou igual ao tamanho da tabela;
+- Multiplicação por primo: $h(k) = ((k \times c_1) \text{mod} 1) \times T$, $T$, $T$ o tamanho da tabela;
+- Universal:
+  - Escolhe dois valores aleatórios, $A$ e $B$ de um conjunto de constantes menores que $P$ primo, que deve ser maior que a maior chave;
+  - $h(k) = ((A \times k + B) \text{mod} P) \text{mod} T$.
