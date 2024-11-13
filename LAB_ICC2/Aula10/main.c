@@ -22,21 +22,21 @@ int main(void){
   scanf("%d", &quantProd);
   int vetProd[quantProd];
 
+  Timer tempoTimer;
+  double tempoExec;
+  start_timer(&tempoTimer);
+
   for(int i = 0; i < quantProd; i++){
     int prod;
     scanf("%d", &prod);
     vetProd[i] = prod;
   }
 
-  Timer tempoTimer;
-  double tempoExec;
-  start_timer(&tempoTimer);
-
   mergesort(vetProd, quantProd);
 
-  printf("%d\n", tamSeqContinua(vetProd, quantProd));
-
   tempoExec = stop_timer(&tempoTimer);
+
+  printf("%d\n", tamSeqContinua(vetProd, quantProd));
   printf("\nTempo de execucao: %lfs\n", tempoExec);
 
   return EXIT_SUCCESS;
